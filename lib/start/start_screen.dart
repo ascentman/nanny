@@ -1,0 +1,153 @@
+import 'package:flutter/material.dart';
+
+import 'components/components.dart';
+
+class StartScreen extends StatefulWidget {
+  const StartScreen({Key? key}) : super(key: key);
+
+  @override
+  _StartScreenState createState() => _StartScreenState();
+}
+
+class _StartScreenState extends State<StartScreen>
+    with TickerProviderStateMixin {
+  AnimationController? _animationController;
+
+  @override
+  void initState() {
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 5));
+    _animationController?.animateTo(0.0);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xffF7EBE1),
+      body: ClipRect(
+        child: Stack(
+          children: [
+            SplashView(
+              animationController: _animationController!,
+            ),
+            _HorizontalSlider(
+              onSwipeToLeft: _onBackClick,
+              onSwipeToRight: _onNextClick,
+              child: RelaxView(
+                animationController: _animationController!,
+              ),
+            ),
+            _HorizontalSlider(
+              onSwipeToLeft: _onBackClick,
+              onSwipeToRight: _onNextClick,
+              child: CareView(
+                animationController: _animationController!,
+              ),
+            ),
+            _HorizontalSlider(
+              onSwipeToLeft: _onBackClick,
+              onSwipeToRight: _onNextClick,
+              child: MoodDiaryVew(
+                animationController: _animationController!,
+              ),
+            ),
+            _HorizontalSlider(
+              onSwipeToLeft: _onBackClick,
+              onSwipeToRight: null,
+              child: WelcomeView(
+                animationController: _animationController!,
+              ),
+            ),
+            TopBackSkipView(
+              onBackClick: _onBackClick,
+              onSkipClick: _onSkipClick,
+              animationController: _animationController!,
+            ),
+            CenterNextButton(
+              animationController: _animationController!,
+              onNextClick: _onNextClick,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _onSkipClick() {
+    _animationController?.animateTo(0.8,
+        duration: const Duration(milliseconds: 200));
+  }
+
+  void _onBackClick() {
+    if (_animationController!.value >= 0 &&
+        _animationController!.value <= 0.2) {
+      _animationController?.animateTo(0.0);
+    } else if (_animationController!.value > 0.2 &&
+        _animationController!.value <= 0.4) {
+      _animationController?.animateTo(0.2);
+    } else if (_animationController!.value > 0.4 &&
+        _animationController!.value <= 0.6) {
+      _animationController?.animateTo(0.4);
+    } else if (_animationController!.value > 0.6 &&
+        _animationController!.value <= 0.8) {
+      _animationController?.animateTo(0.6);
+    } else if (_animationController!.value > 0.8 &&
+        _animationController!.value <= 1.0) {
+      _animationController?.animateTo(0.8);
+    }
+  }
+
+  void _onNextClick() {
+    if (_animationController!.value >= 0 &&
+        _animationController!.value <= 0.2) {
+      _animationController?.animateTo(0.4);
+    } else if (_animationController!.value > 0.2 &&
+        _animationController!.value <= 0.4) {
+      _animationController?.animateTo(0.6);
+    } else if (_animationController!.value > 0.4 &&
+        _animationController!.value <= 0.6) {
+      _animationController?.animateTo(0.8);
+    } else if (_animationController!.value > 0.6 &&
+        _animationController!.value <= 0.8) {
+      _signUpClick();
+    }
+  }
+
+  void _signUpClick() {
+    Navigator.pop(context);
+  }
+}
+
+class _HorizontalSlider extends StatelessWidget {
+  final Widget child;
+  final VoidCallback onSwipeToLeft;
+  final VoidCallback? onSwipeToRight;
+  const _HorizontalSlider({
+    Key? key,
+    required this.onSwipeToLeft,
+    required this.onSwipeToRight,
+    required this.child,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onHorizontalDragEnd: (DragEndDetails details) {
+        if (details.primaryVelocity == null) return;
+        if (details.primaryVelocity! > 0) {
+          onSwipeToLeft();
+        } else if (details.primaryVelocity! < 0) {
+          onSwipeToRight?.call();
+        }
+      },
+      child: child,
+    );
+  }
+}
