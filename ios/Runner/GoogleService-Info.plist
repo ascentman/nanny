@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>569496859404-kv4e4245l910g5d72rl9bnftnlkma9l3.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.569496859404-kv4e4245l910g5d72rl9bnftnlkma9l3</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDKgJ4Az8fRh4NsYbDWtIYOZ1F7iY-D7_w</string>
+	<key>GCM_SENDER_ID</key>
+	<string>569496859404</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.volodymyr.rykhva.nanny</string>
+	<key>PROJECT_ID</key>
+	<string>ua-kids-nanny</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ua-kids-nanny.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:569496859404:ios:8555b92b2efdfe54444f29</string>
+</dict>
+</plist>
