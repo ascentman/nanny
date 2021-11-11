@@ -6,6 +6,7 @@ import 'package:nanny/repository/nannies_repo.dart';
 
 abstract class INanniesViewModel with ChangeNotifier {
   List<Nanny> get nannies;
+  void addNanny(Nanny nanny);
 }
 
 class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
@@ -25,6 +26,10 @@ class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
       _nannies = event;
       notifyListeners();
     });
+  }
+
+  void addNanny(Nanny nanny) {
+    _repo.addNanny(nanny);
   }
 
   @override
