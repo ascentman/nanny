@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "569496859404-pub4k0m7jbg1h95rvrgh95opn6cfg7en.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.volodymyr.rykhva.nanny",
+            "certificate_hash": "ef5361bf6d1f633811cf5ca8c14c814570be622b"
+          }
+        },
+        {
           "client_id": "569496859404-lsm1g1329prru90mto0j8h4apmqlrbm8.apps.googleusercontent.com",
           "client_type": 3
         }

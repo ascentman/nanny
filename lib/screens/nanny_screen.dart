@@ -3,13 +3,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
+import 'package:nanny/screens/register_screen.dart';
+import 'package:nanny/viewmodel/nanny_view_model.dart';
+import 'package:provider/provider.dart';
 
 class NannyScreen extends StatelessWidget {
   static String id = 'nanny';
 
   const NannyScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<INannyViewModel>();
     return Scaffold(
       appBar: AppBar(
         title: Text('Юля'),
@@ -260,7 +265,14 @@ class NannyScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          // Navigator.pushNamed(
+          //   context,
+          //   RegisterScreen.id,
+          //   arguments: 1, //TODO(Vova): set nanny id;
+          // );
+          Navigator.pushNamed(context, RegisterScreen.id);
+        },
         label: const Text('Вибрати'),
         icon: const Icon(Icons.check_outlined),
       ),
@@ -271,6 +283,7 @@ class NannyScreen extends StatelessWidget {
 class AdditionalInfoRow extends StatelessWidget {
   final IconData icon;
   final String info;
+
   const AdditionalInfoRow({
     Key? key,
     required this.icon,
