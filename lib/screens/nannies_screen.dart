@@ -112,7 +112,7 @@ class _NanniesScreenState extends State<NanniesScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                    'Доступно ${viewModel.nannies.length} няні у м.Тальне'),
+                                    'Доступно ${viewModel.getNanniesCount()} у м.Тальне'),
                                 TextButton.icon(
                                   onPressed: () {
                                     Navigator.pushNamed(
@@ -265,6 +265,6 @@ class SliverPersistentHeaderWidget extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
-    return false;
+    return true;
   }
 }

@@ -33,7 +33,7 @@ class RegisterViewModel with ChangeNotifier implements IRegisterViewModel {
 
   RegisterViewModel({required IRegisterRepo repo})
       : _repo = repo,
-        _isSignInFlow = true;
+        _isSignInFlow = false;
 
   @override
   bool get isSignInFlow => _isSignInFlow;

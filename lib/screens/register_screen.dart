@@ -1,11 +1,52 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
+import 'package:nanny/screens/orders_screen.dart';
 import 'package:nanny/viewmodel/register_view_model.dart';
 import 'package:provider/provider.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   static String id = 'register';
 
   const RegisterScreen({Key? key}) : super(key: key);
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    var vm = context.read<IRegisterViewModel>();
+    vm.addListener(
+      () {
+        if (vm.state == LoginState.success) {
+          CoolAlert.show(
+            context: context,
+            type: CoolAlertType.success,
+            text: 'Ви успішно авторизувалися!',
+            onConfirmBtnTap: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, OrdersScreen.id, (route) => false);
+            },
+          );
+        }
+        if (vm.state == LoginState.error) {
+          CoolAlert.show(
+            context: context,
+            type: CoolAlertType.error,
+            text: vm.errorMessage,
+            onConfirmBtnTap: () {
+              // Navigator.of(context).pop();
+              Navigator.pushNamedAndRemoveUntil(
+                  context, OrdersScreen.id, (route) => false);
+            },
+          );
+        }
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +56,15 @@ class RegisterScreen extends StatelessWidget {
         title: Text(viewModel.isSignInFlow ? 'Вхід' : 'Реєстрація'),
       ),
       body: SafeArea(
-        child: viewModel.isSignInFlow
-            ? SignInWidget(viewModel: viewModel)
-            : RegisterWidget(viewModel: viewModel),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            if (viewModel.isLoading) const CircularProgressIndicator(),
+            viewModel.isSignInFlow
+                ? SignInWidget(viewModel: viewModel)
+                : RegisterWidget(viewModel: viewModel),
+          ],
+        ),
       ),
     );
   }
@@ -71,7 +118,7 @@ class RegisterWidget extends StatelessWidget {
           ),
           LoginContainer(
             actionButtonTitle: 'Зареєструватися',
-            loginErrorMessage: viewModel.errorMessage,
+            viewModel: viewModel,
             action: (email, pass) {
               viewModel.signUp(email: email, password: pass);
             },
@@ -138,7 +185,7 @@ class SignInWidget extends StatelessWidget {
           ),
           LoginContainer(
             actionButtonTitle: 'Увійти',
-            loginErrorMessage: viewModel.errorMessage,
+            viewModel: viewModel,
             action: (email, pass) {
               viewModel.signIn(email: email, password: pass);
             },
@@ -170,12 +217,12 @@ class SignInWidget extends StatelessWidget {
 
 class LoginContainer extends StatefulWidget {
   final String actionButtonTitle;
-  final String? loginErrorMessage;
+  final IRegisterViewModel viewModel;
   final Function(String, String) action;
 
   const LoginContainer({
     Key? key,
-    this.loginErrorMessage,
+    required this.viewModel,
     required this.action,
     required this.actionButtonTitle,
   }) : super(key: key);
@@ -199,10 +246,9 @@ class _LoginContainerState extends State<LoginContainer> {
         children: [
           TextField(
             controller: _emailController,
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
               labelText: 'Ваш E-mail',
-              errorText: widget.loginErrorMessage,
             ),
             textInputAction: TextInputAction.next,
             focusNode: _fnEmail,
@@ -234,10 +280,12 @@ class _LoginContainerState extends State<LoginContainer> {
             style: ButtonStyle(
               padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
             ),
-            onPressed: () => widget.action(
-              _emailController.text,
-              _passwordController.text,
-            ),
+            onPressed: () async {
+              widget.action(
+                _emailController.text,
+                _passwordController.text,
+              );
+            },
             child: Text(
               widget.actionButtonTitle,
               style: const TextStyle(

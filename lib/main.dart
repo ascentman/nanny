@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:nanny/screens/orders_screen.dart';
 import 'package:nanny/screens/register_screen.dart';
 import 'package:nanny/service/locator_service.dart';
 import 'package:nanny/viewmodel/nannies_view_model.dart';
@@ -61,6 +62,7 @@ class MyApp extends StatelessWidget {
         NannyScreen.id: (context) => const NannyScreen(),
         NannyScreen.id: (context) => const NannyScreen(),
         RegisterScreen.id: (context) => const RegisterScreen(),
+        OrdersScreen.id: (context) => const OrdersScreen(),
       },
     );
   }

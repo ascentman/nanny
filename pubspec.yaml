@@ -22,7 +22,7 @@ dependencies:
   time_range_picker: ^2.0.1
   contained_tab_bar_view: ^0.8.0
   flutter_image_slideshow: ^0.1.2
-  progress_state_button: ^1.0.4
+  cool_alert: ^1.1.0
 
 dev_dependencies:
   flutter_test:

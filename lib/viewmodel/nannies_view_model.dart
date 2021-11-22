@@ -10,6 +10,7 @@ abstract class INanniesViewModel with ChangeNotifier {
   void addNanny(Nanny nanny);
   void listenToNannies();
   void listenToAuthState();
+  String getNanniesCount();
 }
 
 class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
@@ -42,6 +43,20 @@ class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
   @override
   void addNanny(Nanny nanny) {
     _repo.addNanny(nanny);
+  }
+
+  @override
+  String getNanniesCount() {
+    switch (_nannies.length % 10) {
+      case 1:
+        return '${_nannies.length} няня';
+      case 2:
+      case 3:
+      case 4:
+        return '${_nannies.length} няні';
+      default:
+        return '${_nannies.length} нянь';
+    }
   }
 
   @override
