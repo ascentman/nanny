@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nanny/viewmodel/nannies_view_model.dart';
+import 'package:provider/provider.dart';
 
 class FilterScreen extends StatelessWidget {
   static String id = 'filter';
@@ -6,6 +8,7 @@ class FilterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<INanniesViewModel>();
     int _filterOption = 1;
     return Scaffold(
       appBar: AppBar(
@@ -23,40 +26,38 @@ class FilterScreen extends StatelessWidget {
               ),
             ),
             RadioListTile<int>(
-              title: const Text('за зростанням ціни'),
-              value: 1,
-              groupValue: _filterOption,
-              onChanged: (value) {
-                print(value);
-              },
-            ),
-            RadioListTile<int>(
-              title: const Text('за спаданням ціни'),
-              value: 2,
-              groupValue: _filterOption,
-              onChanged: (value) {
-                print(value);
-              },
-            ),
-            RadioListTile<int>(
               title: const Text('по рейтингу'),
-              value: 3,
-              groupValue: _filterOption,
-              onChanged: (value) {
-                print(value);
-              },
+              value: 1,
+              groupValue: viewModel.activeFilterOption,
+              onChanged: (v) => _chooseFilterOption(context, v ?? 1),
             ),
             RadioListTile<int>(
               title: const Text('по кількості відгуків'),
               value: 2,
-              groupValue: _filterOption,
-              onChanged: (value) {
-                print(value);
-              },
+              groupValue: viewModel.activeFilterOption,
+              onChanged: (v) => _chooseFilterOption(context, v ?? 2),
+            ),
+            RadioListTile<int>(
+              title: const Text('за зростанням ціни'),
+              value: 3,
+              groupValue: viewModel.activeFilterOption,
+              onChanged: (v) => _chooseFilterOption(context, v ?? 3),
+            ),
+            RadioListTile<int>(
+              title: const Text('за спаданням ціни'),
+              value: 4,
+              groupValue: viewModel.activeFilterOption,
+              onChanged: (v) => _chooseFilterOption(context, v ?? 4),
             ),
           ],
         ),
       ),
     );
+  }
+
+  void _chooseFilterOption(BuildContext context, int option) {
+    context.read<INanniesViewModel>().setFilter(option, () {
+      Navigator.pop(context);
+    });
   }
 }

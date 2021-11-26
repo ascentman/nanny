@@ -8,6 +8,7 @@ abstract class INanniesRepo {
   Future<void> addNanny(Nanny nanny);
   Future<void> updateNanny(Nanny nanny);
   Future<void> deleteNanny(Nanny nanny);
+  Future<List<Nanny>> getOrderedNanniesBy(int option);
 }
 
 class NanniesRepo implements INanniesRepo {
@@ -20,6 +21,18 @@ class NanniesRepo implements INanniesRepo {
   Stream<List<Nanny>> getNannies() {
     return _db.streamDataCollection(path: 'nannies').map(
         (snap) => snap.docs.map((doc) => Nanny.fromSnapshot(doc)).toList());
+  }
+
+  @override
+  Future<List<Nanny>> getOrderedNanniesBy(int option) async {
+    switch (option) {
+      case 3:
+        return _filterBy('payment', isDescending: false);
+      case 4:
+        return _filterBy('payment', isDescending: true);
+      default:
+        return _filterBy('rating', isDescending: true);
+    }
   }
 
   @override
@@ -39,5 +52,16 @@ class NanniesRepo implements INanniesRepo {
   @override
   Future<void> deleteNanny(Nanny nanny) async {
     await _db.removeDocument(path: 'nannies', id: nanny.referenceId ?? '');
+  }
+
+  Future<List<Nanny>> _filterBy(
+    String orderBy, {
+    required bool isDescending,
+  }) async {
+    return (await _db.orderedDataCollection(
+            path: 'nannies', orderBy: orderBy, isDescending: isDescending))
+        .docs
+        .map((snap) => Nanny.fromSnapshot(snap))
+        .toList();
   }
 }

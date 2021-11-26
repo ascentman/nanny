@@ -1,12 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:nanny/screens/booking_screen.dart';
 import 'package:nanny/screens/orders_screen.dart';
-import 'package:nanny/screens/register_screen.dart';
 import 'package:nanny/service/locator_service.dart';
 import 'package:nanny/viewmodel/nannies_view_model.dart';
 import 'package:nanny/viewmodel/nanny_view_model.dart';
-import 'package:nanny/viewmodel/register_view_model.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/screens.dart';
@@ -19,15 +18,10 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider<INanniesViewModel>(
-          create: (_) => NanniesViewModel(repo: sl.get())
-            ..listenToNannies()
-            ..listenToAuthState(),
+          create: (_) => NanniesViewModel(repo: sl.get()),
         ),
         ChangeNotifierProvider<INannyViewModel>(
             create: (_) => NannyViewModel(repo: sl.get())),
-        ChangeNotifierProvider<IRegisterViewModel>(
-          create: (_) => RegisterViewModel(repo: sl.get()),
-        ),
       ],
       child: const MyApp(),
     ),
@@ -61,8 +55,8 @@ class MyApp extends StatelessWidget {
         FilterScreen.id: (context) => const FilterScreen(),
         NannyScreen.id: (context) => const NannyScreen(),
         NannyScreen.id: (context) => const NannyScreen(),
-        RegisterScreen.id: (context) => const RegisterScreen(),
         OrdersScreen.id: (context) => const OrdersScreen(),
+        BookingScreen.id: (context) => const BookingScreen(),
       },
     );
   }

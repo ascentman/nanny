@@ -9,36 +9,31 @@ class Nanny {
   final String workingHours;
   final DateTime startWorkingDate;
   final int payment;
-  final double rating;
+  final num rating;
+  final String detailsAbout;
+  final String schedule;
+  final List<AdditionalInfoRow> additionalInfo;
+  final List<String> certificates;
+  final List<Review> reviews;
   String? referenceId;
 
   Nanny({
     required this.name,
     required this.about,
+    this.photoUrl,
     required this.town,
     required this.workingDays,
     required this.workingHours,
     required this.startWorkingDate,
     required this.payment,
     required this.rating,
-    this.photoUrl,
+    required this.detailsAbout,
+    required this.schedule,
+    required this.additionalInfo,
+    required this.certificates,
+    required this.reviews,
     this.referenceId,
   });
-
-  @override
-  String toString() {
-    return 'Nanny{' +
-        ' name: $name,' +
-        ' about: $about,' +
-        ' photoUrl: $photoUrl,' +
-        ' town: $town,' +
-        ' workingDays: $workingDays,' +
-        ' workingHours: $workingHours,' +
-        ' experience: $startWorkingDate,' +
-        ' payment: $payment,' +
-        ' rating: $rating,' +
-        '}';
-  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -51,6 +46,11 @@ class Nanny {
       'startWorkingDate': startWorkingDate,
       'payment': payment,
       'rating': rating,
+      'detailsAbout': detailsAbout,
+      'schedule': schedule,
+      'additionalInfo': additionalInfo,
+      'certificates': certificates,
+      'referenceId': referenceId,
     };
   }
 
@@ -64,13 +64,77 @@ class Nanny {
       workingHours: map['workingHours'] as String,
       startWorkingDate: (map['startWorkingDate'] as Timestamp).toDate(),
       payment: map['payment'] as int,
-      rating: map['rating'] as double,
+      rating: map['rating'] as num,
+      detailsAbout: map['detailsAbout'] as String,
+      schedule: map['schedule'] as String,
+      additionalInfo: (map['additionalInfo'] as List)
+          .map((info) => AdditionalInfoRow.fromMap(info))
+          .toList(),
+      certificates:
+          (map['certificates'] as List).map((url) => url as String).toList(),
+      reviews: (map['reviews'] as List).map((e) => Review.fromMap(e)).toList(),
     );
   }
 
   factory Nanny.fromSnapshot(DocumentSnapshot snapshot) {
-    final newNanny = Nanny.fromMap(snapshot.data() as Map<String, dynamic>);
+    Nanny newNanny = Nanny.fromMap(snapshot.data() as Map<String, dynamic>);
     newNanny.referenceId = snapshot.reference.id;
     return newNanny;
+  }
+}
+
+class AdditionalInfoRow {
+  final String icon;
+  final String text;
+
+  const AdditionalInfoRow({
+    required this.icon,
+    required this.text,
+  });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'icon': icon,
+      'text': text,
+    };
+  }
+
+  factory AdditionalInfoRow.fromMap(Map<String, dynamic> map) {
+    return AdditionalInfoRow(
+      icon: map['icon'] as String,
+      text: map['text'] as String,
+    );
+  }
+}
+
+class Review {
+  final String name;
+  final num rating;
+  final DateTime date;
+  final String text;
+
+  const Review({
+    required this.name,
+    required this.rating,
+    required this.date,
+    required this.text,
+  });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'rating': rating,
+      'date': date,
+      'text': text,
+    };
+  }
+
+  factory Review.fromMap(Map<String, dynamic> map) {
+    return Review(
+      name: map['name'] as String,
+      rating: map['rating'] as num,
+      date: (map['date'] as Timestamp).toDate(),
+      text: map['text'] as String,
+    );
   }
 }
