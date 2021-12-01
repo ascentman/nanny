@@ -1,10 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:nanny/models/models.dart';
 import 'package:nanny/service/database_service.dart';
 
 abstract class INanniesRepo {
   Stream<List<Nanny>> getNannies();
-  Stream<User?> get authStateChanges;
   Future<void> addNanny(Nanny nanny);
   Future<void> updateNanny(Nanny nanny);
   Future<void> deleteNanny(Nanny nanny);
@@ -13,7 +11,6 @@ abstract class INanniesRepo {
 
 class NanniesRepo implements INanniesRepo {
   final IDatabaseService _db;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   NanniesRepo({required IDatabaseService db}) : _db = db;
 
@@ -34,9 +31,6 @@ class NanniesRepo implements INanniesRepo {
         return _filterBy('rating', isDescending: true);
     }
   }
-
-  @override
-  Stream<User?> get authStateChanges => _auth.authStateChanges();
 
   @override
   Future<void> addNanny(Nanny nanny) async {

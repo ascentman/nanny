@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Nanny {
   final String name;
+  final String email;
   final String about;
   final String? photoUrl;
   final String town;
@@ -19,6 +20,7 @@ class Nanny {
 
   Nanny({
     required this.name,
+    required this.email,
     required this.about,
     this.photoUrl,
     required this.town,
@@ -38,6 +40,7 @@ class Nanny {
   Map<String, dynamic> toMap() {
     return {
       'name': name,
+      'email': email,
       'about': about,
       'photoUrl': photoUrl,
       'town': town,
@@ -57,6 +60,7 @@ class Nanny {
   factory Nanny.fromMap(Map<String, dynamic> map) {
     return Nanny(
       name: map['name'] as String,
+      email: map['email'] as String,
       about: map['about'] as String,
       photoUrl: map['photoUrl'] as String,
       town: map['town'] as String,
@@ -84,7 +88,7 @@ class Nanny {
 }
 
 class AdditionalInfoRow {
-  final String icon;
+  final num icon;
   final String text;
 
   const AdditionalInfoRow({
@@ -101,7 +105,7 @@ class AdditionalInfoRow {
 
   factory AdditionalInfoRow.fromMap(Map<String, dynamic> map) {
     return AdditionalInfoRow(
-      icon: map['icon'] as String,
+      icon: map['icon'] as num,
       text: map['text'] as String,
     );
   }

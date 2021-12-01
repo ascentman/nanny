@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 abstract class IEmailService {
   Future<http.Response> sendEmail({
     required String message,
+    required String nannyEmail,
   });
 }
 
@@ -12,6 +13,7 @@ class EmailService implements IEmailService {
   @override
   Future<http.Response> sendEmail({
     required String message,
+    required String nannyEmail,
   }) async {
     const serviceId = 'service_cq922l9';
     const templateId = 'template_lqfcojq';
@@ -30,6 +32,7 @@ class EmailService implements IEmailService {
           'template_id': templateId,
           'template_params': {
             'message': message,
+            'nanny_email': nannyEmail,
           },
         },
       ),

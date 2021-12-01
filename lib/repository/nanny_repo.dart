@@ -2,7 +2,13 @@ import 'package:http/http.dart' as http;
 import 'package:nanny/service/email_service.dart';
 
 abstract class INannyRepo {
-  Future<int> sendEmail(String name, String phone);
+  Future<int> sendEmail({
+    required String nannyEmail,
+    required String date,
+    required String time,
+    required String name,
+    required String phone,
+  });
 }
 
 class NannyRepo implements INannyRepo {
@@ -12,9 +18,16 @@ class NannyRepo implements INannyRepo {
       : _emailService = emailService;
 
   @override
-  Future<int> sendEmail(String name, String phone) async {
-    http.Response response =
-        await _emailService.sendEmail(message: '$name, $phone');
+  Future<int> sendEmail({
+    required String nannyEmail,
+    required String date,
+    required String time,
+    required String name,
+    required String phone,
+  }) async {
+    http.Response response = await _emailService.sendEmail(
+        message: 'Замовлення на: $date, $time.\nВід: $name, $phone',
+        nannyEmail: nannyEmail);
     return response.statusCode;
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nanny/models/models.dart';
 import 'package:nanny/repository/nannies_repo.dart';
+import 'package:nanny/repository/selected_time_repo.dart';
 
 abstract class INanniesViewModel with ChangeNotifier {
   List<Nanny> get nannies;
@@ -36,19 +37,23 @@ abstract class INanniesViewModel with ChangeNotifier {
 
 class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
   final INanniesRepo _repo;
+  final ISelectedTimeRepo _timeRepo;
   List<Nanny> _nannies = [];
   static const nanniesPath = 'nannies';
   late StreamSubscription<List<Nanny>> _nanniesSub;
   late String _selectedDateString;
-  late TimeOfDay _selectedStartHour;
-  late TimeOfDay _selectedEndHour;
+  TimeOfDay _selectedStartHour = const TimeOfDay(hour: 9, minute: 0);
+  TimeOfDay _selectedEndHour = const TimeOfDay(hour: 18, minute: 0);
   int _activeFilterOption = 1;
 
-  NanniesViewModel({required INanniesRepo repo}) : _repo = repo {
+  NanniesViewModel(
+      {required ISelectedTimeRepo timeRepo, required INanniesRepo repo})
+      : _repo = repo,
+        _timeRepo = timeRepo {
     _listenToNannies();
     _selectedDateString = _dayAndMonthFormatted(null);
-    selectStartHour(null);
-    selectEndHour(null);
+    _updateSelectedTime();
+    _updateSelectedDate();
   }
 
   @override
@@ -95,18 +100,25 @@ class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
   @override
   void selectPickerDate(DateTime? dateTime) {
     _selectedDateString = _dayAndMonthFormatted(dateTime);
+    _updateSelectedDate();
     notifyListeners();
   }
 
   @override
   void selectStartHour(TimeOfDay? tod) {
-    _selectedStartHour = tod ?? const TimeOfDay(hour: 9, minute: 0);
+    if (tod != null) {
+      _selectedStartHour = tod;
+    }
+    _updateSelectedTime();
     notifyListeners();
   }
 
   @override
   void selectEndHour(TimeOfDay? tod) {
-    _selectedEndHour = tod ?? const TimeOfDay(hour: 18, minute: 0);
+    if (tod != null) {
+      _selectedEndHour = tod;
+    }
+    _updateSelectedTime();
     notifyListeners();
   }
 
@@ -120,9 +132,8 @@ class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
   }
 
   @override
-  Nanny findById(String? id) {
-    return _nannies.first; //Where((nanny) => nanny.referenceId == id);
-  }
+  Nanny findById(String? id) =>
+      _nannies.firstWhere((nanny) => nanny.referenceId == id);
 
   void _listenToNannies() {
     _nanniesSub = _repo.getNannies().listen((event) {
@@ -142,6 +153,10 @@ class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
     final format = DateFormat.jm('uk');
     return format.format(dt);
   }
+
+  void _updateSelectedTime() => _timeRepo.setTimeRange(timeRangeString);
+
+  void _updateSelectedDate() => _timeRepo.setDate(_selectedDateString);
 
   @override
   void dispose() {

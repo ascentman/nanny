@@ -75,13 +75,4 @@ class DatabaseService implements IDatabaseService {
       required Map<String, dynamic> data}) {
     return _db.collection(path).doc(id).update(data);
   }
-
-  @override
-  Stream<QuerySnapshot<Object?>> streamOrderedDataCollection(
-      {required String path,
-      required String orderBy,
-      required bool isDescending}) {
-    // TODO: implement streamOrderedDataCollection
-    throw UnimplementedError();
-  }
 }

@@ -26,6 +26,13 @@ dependencies:
   http: ^0.13.4
   intl: ^0.17.0
   flutter_rating_bar: ^4.0.0
+  flutter_email_sender: ^5.0.2
+  font_awesome_flutter: ^9.2.0
+  url_launcher: ^6.0.15
+  shared_preferences: ^2.0.9
+  google_fonts: ^2.1.0
+  cached_network_image: ^3.2.0
+  tutorial_coach_mark: ^1.2.0
 
 dev_dependencies:
   flutter_test:
@@ -37,23 +44,4 @@ flutter:
 
   assets:
     - assets/images/
-
-  fonts:
-    - family: WorkSans
-      fonts:
-        - asset: assets/fonts/WorkSans-Regular.ttf
-        - asset: assets/fonts/WorkSans-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/WorkSans-SemiBold.ttf
-          weight: 600
-        - asset: assets/fonts/WorkSans-Bold.ttf
-          weight: 700
-    - family: Roboto
-      fonts:
-        - asset: assets/fonts/Roboto-Bold.ttf
-        - asset: assets/fonts/Roboto-Regular.ttf
-        - asset: assets/fonts/Roboto-Medium.ttf
-          weight: 400
-    #
-    # For details regarding fonts from package dependencies,
-    # see https://flutter.dev/custom-fonts/#from-packages
+    - assets/google_fonts/

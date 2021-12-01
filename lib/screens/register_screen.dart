@@ -1,6 +1,4 @@
-// import 'package:cool_alert/cool_alert.dart';
 // import 'package:flutter/material.dart';
-// import 'package:nanny/screens/orders_screen.dart';
 // import 'package:nanny/viewmodel/register_view_model.dart';
 // import 'package:provider/provider.dart';
 //
@@ -14,39 +12,6 @@
 // }
 //
 // class _RegisterScreenState extends State<RegisterScreen> {
-//   @override
-//   void initState() {
-//     super.initState();
-//
-//     var vm = context.read<IRegisterViewModel>();
-//     vm.addListener(
-//       () {
-//         if (vm.state == LoginState.success) {
-//           CoolAlert.show(
-//             context: context,
-//             type: CoolAlertType.success,
-//             text: 'Ви успішно авторизувалися!',
-//             onConfirmBtnTap: () {
-//               Navigator.pushNamedAndRemoveUntil(
-//                   context, OrdersScreen.id, (route) => false);
-//             },
-//           );
-//         }
-//         if (vm.state == LoginState.error) {
-//           CoolAlert.show(
-//             context: context,
-//             type: CoolAlertType.error,
-//             text: vm.errorMessage,
-//             onConfirmBtnTap: () {
-//               // Navigator.of(context).pop();
-//               Navigator.pushNamedAndRemoveUntil(
-//                   context, OrdersScreen.id, (route) => false);
-//             },
-//           );
-//         }
-//       },
-//     );
-//   }
 //
 //   @override
 //   Widget build(BuildContext context) {

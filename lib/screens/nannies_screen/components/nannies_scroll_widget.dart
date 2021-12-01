@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nanny/screens/nannies_screen/components/sliver_persistent_header.dart';
+import 'package:nanny/screens/screens.dart';
 import 'package:nanny/viewmodel/nannies_view_model.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 
 import '../../filter_screen.dart';
+import '../constants.dart';
 import 'nannies_list.dart';
 
 class NanniesScrollWidget extends StatelessWidget {
@@ -41,6 +43,7 @@ class NanniesScrollWidget extends StatelessWidget {
                             children: [
                               const Text('Вибір дати:'),
                               TextButton.icon(
+                                key: keyButton1,
                                 onPressed: () {
                                   showDatePicker(
                                     context: context,
@@ -63,6 +66,7 @@ class NanniesScrollWidget extends StatelessWidget {
                             children: [
                               const Text('Вибір часу:'),
                               TextButton.icon(
+                                key: keyButton2,
                                 onPressed: () {
                                   showTimeRangePicker(
                                     interval: const Duration(minutes: 30),
@@ -98,18 +102,18 @@ class NanniesScrollWidget extends StatelessWidget {
                 height: 40,
                 color: Colors.grey[200],
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                          'Доступно ${viewModel.getNanniesCount()} у м.Тальне'),
+                      Text('${viewModel.getNanniesCount()} у м.Тальне'),
                       TextButton.icon(
+                        key: keyButton3,
                         onPressed: () {
                           Navigator.pushNamed(context, FilterScreen.id);
                         },
                         icon: const Icon(Icons.filter_list_sharp),
-                        label: const Text('Фільтр'),
+                        label: const Text('Сортування'),
                       ),
                     ],
                   ),

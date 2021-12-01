@@ -1,8 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:nanny/models/nanny.dart';
 
-import '../../nanny_screen.dart';
+import '../../nanny_screen/nanny_screen.dart';
 
 class NanniesList extends StatelessWidget {
   final List<Nanny> nannies;
@@ -31,11 +32,20 @@ class NanniesList extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(40.0),
-                  child: Image.asset(
-                    'assets/images/profile.png',
-                    width: 80,
-                    height: 80,
-                  ),
+                  child: nannies[i].photoUrl == null ||
+                          nannies[i].photoUrl!.isEmpty
+                      ? Image.asset(
+                          'assets/images/profile.png',
+                          width: 80,
+                          height: 80,
+                        )
+                      : CachedNetworkImage(
+                          imageUrl: nannies[i].photoUrl!,
+                          placeholder: (context, url) =>
+                              const Center(child: CircularProgressIndicator()),
+                          width: 80,
+                          height: 80,
+                        ),
                 ),
                 Expanded(
                   child: Padding(

@@ -9,10 +9,9 @@ class FilterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<INanniesViewModel>();
-    int _filterOption = 1;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Фільтр'),
+        title: const Text('Сортування'),
       ),
       body: SafeArea(
         child: Column(
