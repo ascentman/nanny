@@ -75,7 +75,7 @@ class ComfortableView extends StatelessWidget {
       child: SlideTransition(
         position: _secondHalfAnimation,
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 80, top: 30),
+          padding: const EdgeInsets.only(bottom: 70, top: 30),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -101,8 +101,8 @@ class ComfortableView extends StatelessWidget {
                   padding: const EdgeInsets.only(
                       left: 20, right: 20, top: 16, bottom: 16),
                   child: Text(
-                    '🔹 У вас робота або запланований романтичний вечір удвох?\n'
-                    '🔹 Ми, UA kids: няня, з любов\'ю потурбуємося про ваших дітей❤️.',
+                    '🔹 У вас термінові справи, робота, бізнес або запланований романтичний вечір удвох, а дітей нема з ким залишити?\n'
+                    '🔹 Ми, UA kids: няня, з любов\'ю потурбуємося про них❤️.',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.literata(
                       textStyle: const TextStyle(fontSize: 15),
@@ -114,7 +114,7 @@ class ComfortableView extends StatelessWidget {
                 position: _imageAnimation,
                 child: Container(
                   constraints:
-                      const BoxConstraints(maxWidth: 300, maxHeight: 220),
+                      const BoxConstraints(maxWidth: 250, maxHeight: 250),
                   child: Image.asset(
                     'assets/images/couple.jpg',
                     fit: BoxFit.cover,
