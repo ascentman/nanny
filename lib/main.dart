@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:nanny/screens/nannies_screen/components/dismiss_keyboard.dart';
 import 'package:nanny/service/locator_service.dart';
 import 'package:nanny/viewmodel/nannies_view_model.dart';
 import 'package:nanny/viewmodel/nanny_view_model.dart';
@@ -38,32 +39,35 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('uk'),
-        Locale('ru'),
-        Locale('en'),
-      ],
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
+    return DismissKeyboard(
+      child: MaterialApp(
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('uk'),
+          Locale('ru'),
+          Locale('en'),
+        ],
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.indigo,
+        ),
+        initialRoute: initScreen,
+        routes: {
+          StartScreen.id: (context) => const StartScreen(),
+          NanniesScreen.id: (context) => const NanniesScreen(),
+          FilterScreen.id: (context) => const FilterScreen(),
+          NannyScreen.id: (context) => const NannyScreen(),
+          NannyScreen.id: (context) => const NannyScreen(),
+          AboutUsScreen.id: (context) => const AboutUsScreen(),
+          ContactUsScreen.id: (context) => const ContactUsScreen(),
+          BookingConfirmScreen.id: (context) => const BookingConfirmScreen(),
+        },
       ),
-      initialRoute: initScreen,
-      routes: {
-        StartScreen.id: (context) => const StartScreen(),
-        NanniesScreen.id: (context) => const NanniesScreen(),
-        FilterScreen.id: (context) => const FilterScreen(),
-        NannyScreen.id: (context) => const NannyScreen(),
-        NannyScreen.id: (context) => const NannyScreen(),
-        AboutUsScreen.id: (context) => const AboutUsScreen(),
-        ContactUsScreen.id: (context) => const ContactUsScreen(),
-      },
     );
   }
 }

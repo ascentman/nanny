@@ -57,7 +57,7 @@ class TopBackSkipView extends StatelessWidget {
                 SlideTransition(
                   position: _skipAnimation,
                   child: SizedBox(
-                    width: 58,
+                    width: 70,
                     child: IconButton(
                       onPressed: onSkipClick,
                       icon: Text(

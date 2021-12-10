@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class WelcomeView extends StatelessWidget {
   final AnimationController animationController;
@@ -95,19 +94,13 @@ class WelcomeView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(
                     left: 20, right: 20, top: 16, bottom: 16),
-                child: GestureDetector(
-                  child: Text(
-                    'У разі виникнення будь-яких запитань по роботі сервісу або '
-                    'ви хочете стати частиною нашої команди - наш контактний '
-                    'номер телефону: (063) 205-20-41❤️',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.literata(
-                      textStyle: const TextStyle(fontSize: 15),
-                    ),
+                child: Text(
+                  'У разі виникнення будь-яких запитань по роботі сервісу або '
+                  'ви хочете стати частиною нашої команди ми будемо раді допомогти❤️',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.literata(
+                    textStyle: const TextStyle(fontSize: 15),
                   ),
-                  onTap: () {
-                    _makePhoneCall();
-                  },
                 ),
               ),
             ],
@@ -115,13 +108,5 @@ class WelcomeView extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Future<void> _makePhoneCall() async {
-    final Uri launchUri = Uri(
-      scheme: 'tel',
-      path: '0632052041',
-    );
-    await launch(launchUri.toString());
   }
 }

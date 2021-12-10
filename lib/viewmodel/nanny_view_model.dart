@@ -16,6 +16,8 @@ abstract class INannyViewModel with ChangeNotifier {
 
   void setNanny(Nanny nanny);
 
+  void resetNannyState();
+
   void sendBookingRequest(String name, String phone, VoidCallback onFinish);
 }
 
@@ -67,6 +69,11 @@ class NannyViewModel with ChangeNotifier implements INannyViewModel {
   @override
   void setNanny(Nanny nanny) {
     _nanny = nanny;
+  }
+
+  @override
+  void resetNannyState() {
+    _setState(NannyState.initial);
   }
 
   void _setState(NannyState viewState) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nanny/screens/nannies_screen/nannies_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactUsScreen extends StatelessWidget {
@@ -234,7 +235,13 @@ class _SendEmailFormState extends State<SendEmailForm> {
                 attachmentPaths: [],
                 isHTML: false,
               );
-              await FlutterEmailSender.send(email);
+              try {
+                await FlutterEmailSender.send(email);
+              } catch (e) {
+                debugPrint(e.toString());
+              }
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil(NanniesScreen.id, (route) => false);
             },
             child: const Text(
               'Відправити',

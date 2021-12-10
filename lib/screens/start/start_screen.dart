@@ -19,7 +19,7 @@ class _StartScreenState extends State<StartScreen>
   @override
   void initState() {
     _animationController =
-        AnimationController(vsync: this, duration: const Duration(seconds: 5));
+        AnimationController(vsync: this, duration: const Duration(seconds: 4));
     _animationController?.animateTo(0.0);
     super.initState();
   }

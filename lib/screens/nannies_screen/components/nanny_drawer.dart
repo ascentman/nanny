@@ -57,7 +57,7 @@ class NannyDrawer extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                'Версія програми: 1.0.0',
+                'Версія програми: 1.0.1',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.literata(),
               ),

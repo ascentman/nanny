@@ -41,10 +41,20 @@ class NanniesList extends StatelessWidget {
                         )
                       : CachedNetworkImage(
                           imageUrl: nannies[i].photoUrl!,
-                          placeholder: (context, url) =>
-                              const Center(child: CircularProgressIndicator()),
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                                  CircularProgressIndicator(
+                                      color: Colors.white,
+                                      value: downloadProgress.progress),
+                          errorWidget: (context, url, error) => const Icon(
+                            Icons.error,
+                            size: 40,
+                            color: Colors.red,
+                          ),
+                          fadeOutDuration: const Duration(milliseconds: 100),
                           width: 80,
                           height: 80,
+                          fit: BoxFit.fill,
                         ),
                 ),
                 Expanded(
@@ -63,6 +73,7 @@ class NanniesList extends StatelessWidget {
                                 style: const TextStyle(fontSize: 18),
                               ),
                               RatingBar.builder(
+                                ignoreGestures: true,
                                 initialRating: nannies[i].rating.toDouble(),
                                 minRating: 1,
                                 direction: Axis.horizontal,
