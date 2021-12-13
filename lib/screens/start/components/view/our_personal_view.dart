@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -76,54 +77,66 @@ class OurPersonalView extends StatelessWidget {
       child: SlideTransition(
         position: _secondHalfAnimation,
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 100),
+          padding: const EdgeInsets.only(bottom: 100, top: 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SlideTransition(
-                position: _imageFirstHalfAnimation,
+              Flexible(
+                flex: 5,
                 child: SlideTransition(
-                  position: _imageSecondHalfAnimation,
-                  child: Container(
-                    constraints:
-                        const BoxConstraints(maxWidth: 250, maxHeight: 250),
-                    child: Image.asset(
-                      'assets/images/nanny2.png',
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ),
-              ),
-              SlideTransition(
-                position: _relaxFirstHalfAnimation,
-                child: SlideTransition(
-                  position: _relaxSecondHalfAnimation,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      'Кваліфікований персонал',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.literata(
-                        textStyle: const TextStyle(
-                            color: Colors.indigo,
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold),
+                  position: _imageFirstHalfAnimation,
+                  child: SlideTransition(
+                    position: _imageSecondHalfAnimation,
+                    child: Container(
+                      constraints: BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width),
+                      child: Image.asset(
+                        'assets/images/nanny2.png',
+                        fit: BoxFit.contain,
                       ),
                     ),
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 20, right: 20, bottom: 16, top: 16),
-                child: Text(
-                  '🔹 Перед початком роботи кожна няня проходить навчання по догляду '
-                  'за дітьми та надання першої медичної допомоги❤️.\n 🔹 Усі няні проходять медичні огляди, мають відповідні сертифікати.',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.literata(
-                    textStyle: const TextStyle(fontSize: 15),
+              Flexible(
+                flex: 2,
+                child: SlideTransition(
+                  position: _relaxFirstHalfAnimation,
+                  child: SlideTransition(
+                    position: _relaxSecondHalfAnimation,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: AutoSizeText(
+                        'Кваліфікований персонал',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.literata(
+                          textStyle: const TextStyle(
+                              color: Colors.indigo,
+                              fontSize: 36.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
+              ),
+              Flexible(
+                flex: 5,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 20, right: 20, bottom: 16, top: 16),
+                  child: AutoSizeText(
+                    '🔹 Перед початком роботи кожна няня проходить навчання по догляду '
+                    'за дітьми та надання першої медичної допомоги❤️.\n 🔹 Усі няні проходять медичні огляди, мають відповідні сертифікати.',
+                    textAlign: TextAlign.left,
+                    style: GoogleFonts.literata(
+                      textStyle: const TextStyle(fontSize: 30),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
               ),
             ],
           ),

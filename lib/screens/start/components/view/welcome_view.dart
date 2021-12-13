@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -60,46 +61,54 @@ class WelcomeView extends StatelessWidget {
       child: SlideTransition(
         position: _secondHalfAnimation,
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 100),
+          padding: const EdgeInsets.only(bottom: 100, top: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SlideTransition(
-                position: _welcomeImageAnimation,
-                child: Container(
-                  constraints:
-                      const BoxConstraints(maxWidth: 300, maxHeight: 300),
-                  child: Image.asset(
-                    'assets/images/nanny3.png',
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
-              SlideTransition(
-                position: _welcomeFirstHalfAnimation,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    'Ми завжди готові допомогти',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.literata(
-                      textStyle: const TextStyle(
-                          color: Colors.indigo,
-                          fontSize: 25.0,
-                          fontWeight: FontWeight.bold),
+              Flexible(
+                flex: 5,
+                child: SlideTransition(
+                  position: _welcomeImageAnimation,
+                  child: Container(
+                    constraints: BoxConstraints(
+                        maxWidth: MediaQuery.of(context).size.width),
+                    child: Image.asset(
+                      'assets/images/nanny3.png',
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 20, right: 20, top: 16, bottom: 16),
-                child: Text(
-                  'У разі виникнення будь-яких запитань по роботі сервісу або '
-                  'ви хочете стати частиною нашої команди ми будемо раді допомогти❤️',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.literata(
-                    textStyle: const TextStyle(fontSize: 15),
+              Flexible(
+                flex: 2,
+                child: SlideTransition(
+                  position: _welcomeFirstHalfAnimation,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: AutoSizeText(
+                      'Ми завжди готові допомогти',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.literata(
+                        textStyle: const TextStyle(
+                            color: Colors.indigo,
+                            fontSize: 32.0,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Flexible(
+                flex: 5,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 20, right: 20, top: 16, bottom: 16),
+                  child: AutoSizeText(
+                    'Коли у вас виникнуть будь-які запитання по роботі сервісу - напишіть нам, ми будемо раді допомогти❤.️',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.literata(
+                      textStyle: const TextStyle(fontSize: 22),
+                    ),
                   ),
                 ),
               ),

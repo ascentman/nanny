@@ -34,51 +34,49 @@ class _StartScreenState extends State<StartScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF7EBE1),
-      body: ClipRect(
-        child: Stack(
-          children: [
-            SplashView(
+      body: Stack(
+        children: [
+          SplashView(
+            animationController: _animationController!,
+          ),
+          _HorizontalSlider(
+            onSwipeToLeft: _onBackClick,
+            onSwipeToRight: _onNextClick,
+            child: ComfortableView(
               animationController: _animationController!,
             ),
-            _HorizontalSlider(
-              onSwipeToLeft: _onBackClick,
-              onSwipeToRight: _onNextClick,
-              child: ComfortableView(
-                animationController: _animationController!,
-              ),
-            ),
-            _HorizontalSlider(
-              onSwipeToLeft: _onBackClick,
-              onSwipeToRight: _onNextClick,
-              child: OurPersonalView(
-                animationController: _animationController!,
-              ),
-            ),
-            _HorizontalSlider(
-              onSwipeToLeft: _onBackClick,
-              onSwipeToRight: _onNextClick,
-              child: CooperationVew(
-                animationController: _animationController!,
-              ),
-            ),
-            _HorizontalSlider(
-              onSwipeToLeft: _onBackClick,
-              onSwipeToRight: null,
-              child: WelcomeView(
-                animationController: _animationController!,
-              ),
-            ),
-            TopBackSkipView(
-              onBackClick: _onBackClick,
-              onSkipClick: _onSkipClick,
+          ),
+          _HorizontalSlider(
+            onSwipeToLeft: _onBackClick,
+            onSwipeToRight: _onNextClick,
+            child: OurPersonalView(
               animationController: _animationController!,
             ),
-            CenterNextButton(
+          ),
+          _HorizontalSlider(
+            onSwipeToLeft: _onBackClick,
+            onSwipeToRight: _onNextClick,
+            child: CooperationVew(
               animationController: _animationController!,
-              onNextClick: _onNextClick,
             ),
-          ],
-        ),
+          ),
+          _HorizontalSlider(
+            onSwipeToLeft: _onBackClick,
+            onSwipeToRight: null,
+            child: WelcomeView(
+              animationController: _animationController!,
+            ),
+          ),
+          TopBackSkipView(
+            onBackClick: _onBackClick,
+            onSkipClick: _onSkipClick,
+            animationController: _animationController!,
+          ),
+          CenterNextButton(
+            animationController: _animationController!,
+            onNextClick: _onNextClick,
+          ),
+        ],
       ),
     );
   }

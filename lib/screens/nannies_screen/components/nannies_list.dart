@@ -65,12 +65,20 @@ class NanniesList extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Flexible(
+                          child: Text(
+                            nannies[i].name,
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                nannies[i].name,
-                                style: const TextStyle(fontSize: 18),
+                                '${nannies[i].payment} грн/год',
+                                style: const TextStyle(
+                                    fontSize: 16, color: Colors.green),
                               ),
                               RatingBar.builder(
                                 ignoreGestures: true,
@@ -79,7 +87,7 @@ class NanniesList extends StatelessWidget {
                                 direction: Axis.horizontal,
                                 allowHalfRating: true,
                                 itemCount: 5,
-                                itemSize: 18,
+                                itemSize: 16,
                                 itemBuilder: (context, _) => const Icon(
                                   Icons.star,
                                   color: Colors.amber,
@@ -87,14 +95,6 @@ class NanniesList extends StatelessWidget {
                                 onRatingUpdate: (_) {},
                               ),
                             ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: Text(
-                            '${nannies[i].payment} грн/год',
-                            style: const TextStyle(
-                                fontSize: 16, color: Colors.green),
                           ),
                         ),
                         Text(

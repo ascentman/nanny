@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -44,6 +45,7 @@ class _SplashViewState extends State<SplashView> {
       child: SingleChildScrollView(
         controller: _scrollController,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
             SizedBox(
               width: MediaQuery.of(context).size.width,
@@ -66,7 +68,7 @@ class _SplashViewState extends State<SplashView> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8),
-              child: Text(
+              child: AutoSizeText(
                 '"Любов до дітей понад усе❤️"',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.literata(
@@ -99,6 +101,9 @@ class _SplashViewState extends State<SplashView> {
                   ),
                 ),
               ),
+            ),
+            const SizedBox(
+              height: 20,
             ),
           ],
         ),

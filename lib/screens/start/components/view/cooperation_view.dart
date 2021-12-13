@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -80,55 +81,69 @@ class CooperationVew extends StatelessWidget {
       child: SlideTransition(
         position: _secondHalfAnimation,
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 100, top: 40),
+          padding: const EdgeInsets.only(bottom: 60, top: 40),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                child: Text(
-                  'Індивідуальний підхід',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.literata(
-                    textStyle: const TextStyle(
-                        color: Colors.indigo,
-                        fontSize: 25.0,
-                        fontWeight: FontWeight.bold),
+              Flexible(
+                flex: 2,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  child: AutoSizeText(
+                    'Індивідуальний підхід',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.literata(
+                      textStyle: const TextStyle(
+                          color: Colors.indigo,
+                          fontSize: 36.0,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
               ),
-              SlideTransition(
-                position: _moodFirstHalfAnimation,
+              Flexible(
+                flex: 5,
                 child: SlideTransition(
-                  position: _moodSecondHalfAnimation,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 20, right: 20, top: 10, bottom: 0),
-                    child: Text(
-                      '🔹 Замовити няню можна погодинно (мін.2 год), на цілий день або більше.\n'
-                      '🔹 Перебування з дитиною може відбуватися вдома або в '
-                      'Центрі розвитку для дітей "UA kids"❤️.',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.literata(
-                        textStyle: const TextStyle(fontSize: 15),
+                  position: _moodFirstHalfAnimation,
+                  child: SlideTransition(
+                    position: _moodSecondHalfAnimation,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 20, right: 20, top: 10, bottom: 0),
+                      child: AutoSizeText(
+                        '🔹 Замовити няню можна погодинно (мін.2 год), на цілий день або більше.\n'
+                        '🔹 Перебування з дитиною може відбуватися вдома або в '
+                        'Центрі розвитку для дітей "UA kids"❤️.',
+                        textAlign: TextAlign.left,
+                        style: GoogleFonts.literata(
+                          textStyle: const TextStyle(fontSize: 30),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-              SlideTransition(
-                position: _imageFirstHalfAnimation,
+              Flexible(
+                flex: 5,
                 child: SlideTransition(
-                  position: _imageSecondHalfAnimation,
-                  child: Container(
-                    constraints:
-                        const BoxConstraints(maxWidth: 274, maxHeight: 240),
-                    child: Image.asset(
-                      'assets/images/nanny1.png',
-                      fit: BoxFit.contain,
+                  position: _imageFirstHalfAnimation,
+                  child: SlideTransition(
+                    position: _imageSecondHalfAnimation,
+                    child: Container(
+                      constraints: BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width),
+                      child: Image.asset(
+                        'assets/images/nanny1.png',
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
+                ),
+              ),
+              const Flexible(
+                child: SizedBox(
+                  height: 20,
                 ),
               ),
             ],
