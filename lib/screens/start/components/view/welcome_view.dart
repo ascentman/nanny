@@ -91,7 +91,7 @@ class WelcomeView extends StatelessWidget {
                       style: GoogleFonts.literata(
                         textStyle: const TextStyle(
                             color: Colors.indigo,
-                            fontSize: 32.0,
+                            fontSize: 30.0,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -107,7 +107,7 @@ class WelcomeView extends StatelessWidget {
                     'Коли у вас виникнуть будь-які запитання по роботі сервісу - напишіть нам, ми будемо раді допомогти❤.️',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.literata(
-                      textStyle: const TextStyle(fontSize: 22),
+                      textStyle: const TextStyle(fontSize: 20),
                     ),
                   ),
                 ),

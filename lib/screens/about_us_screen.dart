@@ -51,7 +51,7 @@ class AboutUsScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15.0),
                     child: Image.asset(
                       'assets/images/we.png',
-                      width: double.infinity,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),

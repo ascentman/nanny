@@ -77,7 +77,7 @@ class OurPersonalView extends StatelessWidget {
       child: SlideTransition(
         position: _secondHalfAnimation,
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 100, top: 10),
+          padding: const EdgeInsets.only(bottom: 100, top: 30),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -112,7 +112,7 @@ class OurPersonalView extends StatelessWidget {
                         style: GoogleFonts.literata(
                           textStyle: const TextStyle(
                               color: Colors.indigo,
-                              fontSize: 36.0,
+                              fontSize: 30.0,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -130,7 +130,7 @@ class OurPersonalView extends StatelessWidget {
                     'за дітьми та надання першої медичної допомоги❤️.\n 🔹 Усі няні проходять медичні огляди, мають відповідні сертифікати.',
                     textAlign: TextAlign.left,
                     style: GoogleFonts.literata(
-                      textStyle: const TextStyle(fontSize: 30),
+                      textStyle: const TextStyle(fontSize: 20),
                     ),
                   ),
                 ),

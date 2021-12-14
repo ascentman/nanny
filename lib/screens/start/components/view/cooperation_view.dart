@@ -96,7 +96,7 @@ class CooperationVew extends StatelessWidget {
                     style: GoogleFonts.literata(
                       textStyle: const TextStyle(
                           color: Colors.indigo,
-                          fontSize: 36.0,
+                          fontSize: 30.0,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -117,7 +117,7 @@ class CooperationVew extends StatelessWidget {
                         'Центрі розвитку для дітей "UA kids"❤️.',
                         textAlign: TextAlign.left,
                         style: GoogleFonts.literata(
-                          textStyle: const TextStyle(fontSize: 30),
+                          textStyle: const TextStyle(fontSize: 20),
                         ),
                       ),
                     ),

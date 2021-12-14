@@ -13,21 +13,6 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
-  final ScrollController _scrollController = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-
-    Future.delayed(const Duration(seconds: 1), () {
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 100),
-        curve: Curves.easeInOut,
-      );
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final _interconnection =
@@ -43,71 +28,99 @@ class _SplashViewState extends State<SplashView> {
     return SlideTransition(
       position: _interconnection,
       child: SingleChildScrollView(
-        controller: _scrollController,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+        child: Stack(
+          alignment: Alignment.bottomCenter,
           children: [
-            SizedBox(
+            Container(
+              color: const Color(0xfff7EBE1),
+              height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              child: Image.asset(
-                'assets/images/start.png',
-                fit: BoxFit.cover,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-              child: Text(
-                'UA kids: няня',
-                style: GoogleFonts.literata(
-                  textStyle: const TextStyle(
-                      color: Colors.indigo,
-                      fontSize: 32.0,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              child: AutoSizeText(
-                '"Любов до дітей понад усе❤️"',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.literata(
-                  textStyle: const TextStyle(fontSize: 16.0),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-              child: GestureDetector(
-                onTap: () {
-                  widget.animationController.animateTo(0.2);
-                },
-                child: Container(
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25.0),
-                    color: Colors.indigo,
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Почати',
-                      style: GoogleFonts.literata(
-                        textStyle: const TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
-                        ),
-                      ),
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.7,
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: Image.asset(
+                      'assets/images/nanny.png',
                     ),
                   ),
                 ),
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            StartContainer(widget: widget),
           ],
         ),
       ),
+    );
+  }
+}
+
+class StartContainer extends StatelessWidget {
+  const StartContainer({
+    Key? key,
+    required this.widget,
+  }) : super(key: key);
+
+  final SplashView widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+          child: Text(
+            'UA kids: няня',
+            style: GoogleFonts.literata(
+              textStyle: const TextStyle(
+                  color: Colors.indigo,
+                  fontSize: 36.0,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 8, right: 8),
+          child: AutoSizeText(
+            '"Любов до дітей понад усе❤️"',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.literata(
+              textStyle: const TextStyle(fontSize: 18.0),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+          child: GestureDetector(
+            onTap: () {
+              widget.animationController.animateTo(0.2);
+            },
+            child: Container(
+              height: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25.0),
+                color: Colors.indigo,
+              ),
+              child: Center(
+                child: Text(
+                  'Почати',
+                  style: GoogleFonts.literata(
+                    textStyle: const TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+      ],
     );
   }
 }
