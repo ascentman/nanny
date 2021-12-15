@@ -28,314 +28,302 @@ class NannyScreen extends StatelessWidget {
           style: GoogleFonts.literata(),
         ),
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(40.0),
-                    child: viewModel.nanny.photoUrl == null ||
-                            viewModel.nanny.photoUrl!.isEmpty
-                        ? Image.asset(
-                            'assets/images/profile.png',
-                            width: 80,
-                            height: 80,
-                          )
-                        : CachedNetworkImage(
-                            imageUrl: viewModel.nanny.photoUrl!,
-                            progressIndicatorBuilder:
-                                (context, url, downloadProgress) =>
-                                    CircularProgressIndicator(
-                                        color: Colors.white,
-                                        value: downloadProgress.progress),
-                            errorWidget: (context, url, error) => const Icon(
-                              Icons.error,
-                              size: 40,
-                              color: Colors.red,
-                            ),
-                            fadeOutDuration: const Duration(milliseconds: 100),
-                            width: 80,
-                            height: 80,
-                            fit: BoxFit.fill,
+      body: Column(
+        children: [
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(40.0),
+                  child: viewModel.nanny.photoUrl == null ||
+                          viewModel.nanny.photoUrl!.isEmpty
+                      ? Image.asset(
+                          'assets/images/profile.png',
+                          width: 80,
+                          height: 80,
+                        )
+                      : CachedNetworkImage(
+                          imageUrl: viewModel.nanny.photoUrl!,
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                                  CircularProgressIndicator(
+                                      color: Colors.white,
+                                      value: downloadProgress.progress),
+                          errorWidget: (context, url, error) => const Icon(
+                            Icons.error,
+                            size: 40,
+                            color: Colors.red,
                           ),
+                          fadeOutDuration: const Duration(milliseconds: 100),
+                          width: 80,
+                          height: 80,
+                          fit: BoxFit.fill,
+                        ),
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  children: [
+                    Text(
+                      viewModel.nanny.name,
+                      style: GoogleFonts.literata(
+                        textStyle: const TextStyle(fontSize: 20),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    RatingBar.builder(
+                      ignoreGestures: true,
+                      initialRating: viewModel.nanny.rating.toDouble(),
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemSize: 16,
+                      itemBuilder: (context, _) => const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      onRatingUpdate: (_) {},
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+          const Divider(
+            height: 2,
+            color: Colors.grey,
+          ),
+          Expanded(
+            child: ContainedTabBarView(
+              tabBarProperties: const TabBarProperties(
+                  indicatorWeight: 4, labelColor: Colors.black),
+              tabs: [
+                Text(
+                  'Інформація',
+                  style: GoogleFonts.literata(
+                    textStyle: const TextStyle(fontSize: 15),
                   ),
                 ),
-                Expanded(
-                  child: Column(
+                Text(
+                  'Сертифікати (${viewModel.nanny.certificates.length})',
+                  style: GoogleFonts.literata(
+                    textStyle: const TextStyle(fontSize: 15),
+                  ),
+                ),
+                Text(
+                  'Відгуки (${viewModel.nanny.reviews.length})',
+                  style: GoogleFonts.literata(
+                    textStyle: const TextStyle(fontSize: 15),
+                  ),
+                ),
+              ],
+              views: [
+                LayoutBuilder(builder:
+                    (BuildContext context, BoxConstraints viewportConstraints) {
+                  return SingleChildScrollView(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: viewportConstraints.maxHeight,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              'Про мене:',
+                              style: GoogleFonts.literata(
+                                textStyle: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 17,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              viewModel.nanny.detailsAbout,
+                              style: GoogleFonts.literata(
+                                textStyle: const TextStyle(fontSize: 15),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 20),
+                            child: Container(
+                              color: Colors.grey.shade200,
+                              height: 10,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              'Графік роботи:',
+                              style: GoogleFonts.literata(
+                                textStyle: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 17,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              viewModel.nanny.schedule,
+                              style: GoogleFonts.literata(
+                                textStyle: const TextStyle(fontSize: 15),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 20),
+                            child: Container(
+                              color: Colors.grey.shade200,
+                              height: 10,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              'Додатково:',
+                              style: GoogleFonts.literata(
+                                textStyle: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 17,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: viewModel.nanny.additionalInfo.length,
+                            itemBuilder: (context, i) => AdditionalInfoRow(
+                              icon: viewModel.nanny.additionalInfo[i].icon
+                                  .toInt(),
+                              info: viewModel.nanny.additionalInfo[i].text,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: ImageSlideshow(
+                    initialPage: 0,
+                    indicatorColor: Colors.indigo,
+                    indicatorBackgroundColor: Colors.white,
                     children: [
-                      Text(
-                        viewModel.nanny.name,
-                        style: GoogleFonts.literata(
-                          textStyle: const TextStyle(fontSize: 20),
+                      for (String url in viewModel.nanny.certificates)
+                        CachedNetworkImage(
+                          imageUrl: url,
+                          fit: BoxFit.contain,
+                          placeholder: (context, url) =>
+                              const Center(child: CircularProgressIndicator()),
+                          fadeOutDuration: const Duration(milliseconds: 100),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      RatingBar.builder(
-                        ignoreGestures: true,
-                        initialRating: viewModel.nanny.rating.toDouble(),
-                        minRating: 1,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemCount: 5,
-                        itemSize: 16,
-                        itemBuilder: (context, _) => const Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                        ),
-                        onRatingUpdate: (_) {},
-                      ),
                     ],
                   ),
-                )
-              ],
-            ),
-            const Divider(
-              height: 2,
-              color: Colors.grey,
-            ),
-            Expanded(
-              child: ContainedTabBarView(
-                tabBarProperties: const TabBarProperties(
-                    indicatorWeight: 4, labelColor: Colors.black),
-                tabs: [
-                  Text(
-                    'Інформація',
-                    style: GoogleFonts.literata(
-                      textStyle: const TextStyle(fontSize: 15),
-                    ),
-                  ),
-                  Text(
-                    'Сертифікати (${viewModel.nanny.certificates.length})',
-                    style: GoogleFonts.literata(
-                      textStyle: const TextStyle(fontSize: 15),
-                    ),
-                  ),
-                  Text(
-                    'Відгуки (${viewModel.nanny.reviews.length})',
-                    style: GoogleFonts.literata(
-                      textStyle: const TextStyle(fontSize: 15),
-                    ),
-                  ),
-                ],
-                views: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 20, horizontal: 0),
-                    child: LayoutBuilder(builder: (BuildContext context,
-                        BoxConstraints viewportConstraints) {
-                      return SingleChildScrollView(
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints(
-                            minHeight: viewportConstraints.maxHeight,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                ),
+                ListView.separated(
+                  padding: const EdgeInsets.all(8),
+                  itemCount: viewModel.nanny.reviews.length,
+                  itemBuilder: (context, i) {
+                    return ListTile(
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: Text(
-                                  'Про мене:',
-                                  style: GoogleFonts.literata(
-                                    textStyle: const TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 17,
+                              Row(
+                                children: [
+                                  Text(
+                                    viewModel.nanny.reviews[i].name,
+                                    style: GoogleFonts.literata(
+                                      textStyle: const TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: Text(
-                                  viewModel.nanny.detailsAbout,
-                                  style: GoogleFonts.literata(
-                                    textStyle: const TextStyle(fontSize: 15),
+                                  const SizedBox(
+                                    width: 10,
                                   ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 20),
-                                child: Container(
-                                  color: Colors.grey.shade200,
-                                  height: 10,
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: Text(
-                                  'Графік роботи:',
-                                  style: GoogleFonts.literata(
-                                    textStyle: const TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 17,
+                                  Text(
+                                    DateFormat.yMd('uk').format(
+                                        viewModel.nanny.reviews[i].date),
+                                    style: GoogleFonts.literata(
+                                      textStyle: const TextStyle(
+                                          fontSize: 14, color: Colors.grey),
                                     ),
                                   ),
+                                ],
+                              ),
+                              RatingBar.builder(
+                                ignoreGestures: true,
+                                initialRating: viewModel.nanny.reviews[i].rating
+                                    .toDouble(),
+                                minRating: 1,
+                                direction: Axis.horizontal,
+                                allowHalfRating: true,
+                                itemCount: 5,
+                                itemSize: 14,
+                                itemBuilder: (context, _) => const Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: Text(
-                                  viewModel.nanny.schedule,
-                                  style: GoogleFonts.literata(
-                                    textStyle: const TextStyle(fontSize: 15),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 20),
-                                child: Container(
-                                  color: Colors.grey.shade200,
-                                  height: 10,
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: Text(
-                                  'Додатково:',
-                                  style: GoogleFonts.literata(
-                                    textStyle: const TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 17,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              ListView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount:
-                                    viewModel.nanny.additionalInfo.length,
-                                itemBuilder: (context, i) => AdditionalInfoRow(
-                                  icon: viewModel.nanny.additionalInfo[i].icon
-                                      .toInt(),
-                                  info: viewModel.nanny.additionalInfo[i].text,
-                                ),
+                                onRatingUpdate: (_) {},
                               ),
                             ],
                           ),
-                        ),
-                      );
-                    }),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: ImageSlideshow(
-                      initialPage: 0,
-                      indicatorColor: Colors.indigo,
-                      indicatorBackgroundColor: Colors.white,
-                      children: [
-                        for (String url in viewModel.nanny.certificates)
-                          CachedNetworkImage(
-                            imageUrl: url,
-                            fit: BoxFit.contain,
-                            placeholder: (context, url) => const Center(
-                                child: CircularProgressIndicator()),
-                            fadeOutDuration: const Duration(milliseconds: 100),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
-                          ),
-                      ],
-                    ),
-                  ),
-                  ListView.separated(
-                    padding: const EdgeInsets.all(8),
-                    itemCount: viewModel.nanny.reviews.length,
-                    itemBuilder: (context, i) {
-                      return ListTile(
-                        title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      viewModel.nanny.reviews[i].name,
-                                      style: GoogleFonts.literata(
-                                        textStyle: const TextStyle(
-                                            fontSize: 14,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      DateFormat.yMd('uk').format(
-                                          viewModel.nanny.reviews[i].date),
-                                      style: GoogleFonts.literata(
-                                        textStyle: const TextStyle(
-                                            fontSize: 14, color: Colors.grey),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                RatingBar.builder(
-                                  ignoreGestures: true,
-                                  initialRating: viewModel
-                                      .nanny.reviews[i].rating
-                                      .toDouble(),
-                                  minRating: 1,
-                                  direction: Axis.horizontal,
-                                  allowHalfRating: true,
-                                  itemCount: 5,
-                                  itemSize: 14,
-                                  itemBuilder: (context, _) => const Icon(
-                                    Icons.star,
-                                    color: Colors.amber,
-                                  ),
-                                  onRatingUpdate: (_) {},
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              child: Text(
-                                viewModel.nanny.reviews[i].text,
-                                style: GoogleFonts.literata(
-                                  textStyle: const TextStyle(
-                                      color: Colors.black54, fontSize: 14),
-                                ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: Text(
+                              viewModel.nanny.reviews[i].text,
+                              style: GoogleFonts.literata(
+                                textStyle: const TextStyle(
+                                    color: Colors.black54, fontSize: 14),
                               ),
                             ),
-                          ],
-                        ),
-                      );
-                    },
-                    separatorBuilder: (context, _) {
-                      return const Divider(
-                        height: 1,
-                      );
-                    },
-                  ),
-                ],
-                onChange: (_) => () {},
-              ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, _) {
+                    return const Divider(
+                      height: 1,
+                    );
+                  },
+                ),
+              ],
+              onChange: (_) => () {},
             ),
-          ],
-        ),
+          ),
+        ],
       ),
       floatingActionButton: ChooseNannyButton(viewModel: viewModel),
     );

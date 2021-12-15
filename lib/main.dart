@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:nanny/screens/nannies_screen/components/dismiss_keyboard.dart';
@@ -20,6 +21,7 @@ Future<void> main() async {
     initScreen = NanniesScreen.id;
   }
   await Firebase.initializeApp();
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   runApp(
     MultiProvider(
       providers: [
@@ -66,6 +68,7 @@ class MyApp extends StatelessWidget {
           AboutUsScreen.id: (context) => const AboutUsScreen(),
           ContactUsScreen.id: (context) => const ContactUsScreen(),
           BookingConfirmScreen.id: (context) => const BookingConfirmScreen(),
+          TutorialScreen.id: (context) => const TutorialScreen(),
         },
       ),
     );

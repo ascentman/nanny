@@ -42,6 +42,13 @@ class NannyDrawer extends StatelessWidget {
                 },
               ),
               MenuButton(
+                title: 'Інструкція',
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, TutorialScreen.id);
+                },
+              ),
+              MenuButton(
                 title: 'Про нас',
                 onTap: () {
                   Navigator.pop(context);

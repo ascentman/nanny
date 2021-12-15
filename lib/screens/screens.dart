@@ -5,3 +5,4 @@ export 'filter_screen.dart';
 export 'nannies_screen/nannies_screen.dart';
 export 'nanny_screen/nanny_screen.dart';
 export 'start/start_screen.dart';
+export 'tutorial_screen.dart';
