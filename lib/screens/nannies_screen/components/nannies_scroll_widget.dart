@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:nanny/screens/nannies_screen/components/sliver_persistent_header.dart';
 import 'package:nanny/screens/screens.dart';
 import 'package:nanny/viewmodel/nannies_view_model.dart';
 import 'package:time_range_picker/time_range_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../filter_screen.dart';
 import 'nannies_list.dart';
@@ -119,9 +121,36 @@ class NanniesScrollWidget extends StatelessWidget {
           ),
         ];
       },
-      body: viewModel.nannies.isEmpty
+      body: viewModel.isLoading
           ? const Center(child: CircularProgressIndicator())
-          : NanniesList(nannies: viewModel.nannies),
+          : viewModel.nannies.isEmpty
+              ? Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: GestureDetector(
+                      onTap: () {
+                        _makePhoneCall();
+                      },
+                      child: Text(
+                        'На жаль, на цей день усі няні зайняті. Подзвоніть нам. Ми постараємося допомогти: 098 990 38 52',
+                        style: GoogleFonts.literata(
+                          textStyle: const TextStyle(
+                              fontSize: 16, color: Colors.blueGrey),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                )
+              : NanniesList(nannies: viewModel.nannies),
     );
+  }
+
+  Future<void> _makePhoneCall() async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: '+380989903852',
+    );
+    await launch(launchUri.toString());
   }
 }

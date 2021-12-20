@@ -63,7 +63,7 @@ class _BookingConfirmScreenState extends State<BookingConfirmScreen> {
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Text(
-                          'Для підтвердження вкажіть своє ім\'я і мобільний телефон. Ми до вас зателефонуємо ❤️.',
+                          'Для підтвердження замовлення вкажіть своє ім\'я і мобільний телефон. Ми до вас зателефонуємо ❤️.',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.literata(
                             textStyle: const TextStyle(

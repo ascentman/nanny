@@ -14,6 +14,11 @@ abstract class IDatabaseService {
     required bool isDescending,
   });
 
+  Future<QuerySnapshot> filteredDataCollection({
+    required String path,
+    required String selectedWeekday,
+  });
+
   Future<void> removeDocument({
     required String path,
     required String id,
@@ -48,6 +53,17 @@ class DatabaseService implements IDatabaseService {
     return _db
         .collection(path)
         .orderBy(orderBy, descending: isDescending)
+        .get();
+  }
+
+  @override
+  Future<QuerySnapshot> filteredDataCollection({
+    required String path,
+    required String selectedWeekday,
+  }) {
+    return _db
+        .collection(path)
+        .where('workingDaysEng', arrayContains: selectedWeekday)
         .get();
   }
 

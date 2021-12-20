@@ -113,12 +113,14 @@ class NannyScreen extends StatelessWidget {
                   style: GoogleFonts.literata(
                     textStyle: const TextStyle(fontSize: 15),
                   ),
+                  textAlign: TextAlign.center,
                 ),
                 Text(
                   'Відгуки (${viewModel.nanny.reviews.length})',
                   style: GoogleFonts.literata(
                     textStyle: const TextStyle(fontSize: 15),
                   ),
+                  textAlign: TextAlign.center,
                 ),
               ],
               views: [
@@ -184,7 +186,7 @@ class NannyScreen extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: Text(
-                              viewModel.nanny.schedule,
+                              viewModel.nanny.workingHours,
                               style: GoogleFonts.literata(
                                 textStyle: const TextStyle(fontSize: 15),
                               ),

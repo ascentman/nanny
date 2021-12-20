@@ -7,6 +7,7 @@ abstract class INanniesRepo {
   Future<void> updateNanny(Nanny nanny);
   Future<void> deleteNanny(Nanny nanny);
   Future<List<Nanny>> getOrderedNanniesBy(int option);
+  Future<List<Nanny>> getFilteredNanniesBy(String selectedWeekday);
 }
 
 class NanniesRepo implements INanniesRepo {
@@ -23,6 +24,8 @@ class NanniesRepo implements INanniesRepo {
   @override
   Future<List<Nanny>> getOrderedNanniesBy(int option) async {
     switch (option) {
+      case 2:
+        return _filterBy('reviewsCount', isDescending: true);
       case 3:
         return _filterBy('payment', isDescending: false);
       case 4:
@@ -54,6 +57,17 @@ class NanniesRepo implements INanniesRepo {
   }) async {
     return (await _db.orderedDataCollection(
             path: 'nannies', orderBy: orderBy, isDescending: isDescending))
+        .docs
+        .map((snap) => Nanny.fromSnapshot(snap))
+        .toList();
+  }
+
+  @override
+  Future<List<Nanny>> getFilteredNanniesBy(String selectedWeekday) async {
+    return (await _db.filteredDataCollection(
+      path: 'nannies',
+      selectedWeekday: selectedWeekday,
+    ))
         .docs
         .map((snap) => Nanny.fromSnapshot(snap))
         .toList();

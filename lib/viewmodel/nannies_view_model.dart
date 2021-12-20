@@ -10,6 +10,8 @@ import 'package:nanny/repository/selected_time_repo.dart';
 abstract class INanniesViewModel with ChangeNotifier {
   List<Nanny> get nannies;
 
+  bool get isLoading;
+
   int get activeFilterOption;
 
   String get selectedDateString;
@@ -39,6 +41,7 @@ class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
   final INanniesRepo _repo;
   final ISelectedTimeRepo _timeRepo;
   List<Nanny> _nannies = [];
+  bool _isLoading = false;
   static const nanniesPath = 'nannies';
   late StreamSubscription<List<Nanny>> _nanniesSub;
   late String _selectedDateString;
@@ -61,6 +64,9 @@ class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
 
   @override
   List<Nanny> get nannies => _nannies;
+
+  @override
+  bool get isLoading => _isLoading;
 
   @override
   String get selectedDateString => _selectedDateString;
@@ -98,9 +104,13 @@ class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
   }
 
   @override
-  void selectPickerDate(DateTime? dateTime) {
+  void selectPickerDate(DateTime? dateTime) async {
     _selectedDateString = _dayAndMonthFormatted(dateTime);
     _updateSelectedDate();
+    if (dateTime != null) {
+      _nannies =
+          await _repo.getFilteredNanniesBy(DateFormat('EEEE').format(dateTime));
+    }
     notifyListeners();
   }
 
@@ -135,11 +145,23 @@ class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
   Nanny findById(String? id) =>
       _nannies.firstWhere((nanny) => nanny.referenceId == id);
 
+  @override
+  void dispose() {
+    _nanniesSub.cancel();
+    super.dispose();
+  }
+
   void _listenToNannies() {
+    _setLoadingState(true);
     _nanniesSub = _repo.getNannies().listen((event) {
       _nannies = event;
-      notifyListeners();
+      _setLoadingState(false);
     });
+  }
+
+  void _setLoadingState(bool isLoading) {
+    _isLoading = isLoading;
+    notifyListeners();
   }
 
   String _dayAndMonthFormatted(DateTime? dateTime) {
@@ -157,10 +179,4 @@ class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
   void _updateSelectedTime() => _timeRepo.setTimeRange(timeRangeString);
 
   void _updateSelectedDate() => _timeRepo.setDate(_selectedDateString);
-
-  @override
-  void dispose() {
-    _nanniesSub.cancel();
-    super.dispose();
-  }
 }

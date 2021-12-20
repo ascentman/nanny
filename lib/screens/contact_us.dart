@@ -113,7 +113,7 @@ class ContactUsScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          _makePhoneCall();
+                          _makePhoneCall('+380632052041');
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -136,6 +136,34 @@ class ContactUsScreen extends StatelessWidget {
                           ],
                         ),
                       ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          _makePhoneCall('+380989903852');
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(
+                              FontAwesomeIcons.mobileAlt,
+                              size: 24,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              '+380989903852',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -147,10 +175,10 @@ class ContactUsScreen extends StatelessWidget {
     );
   }
 
-  Future<void> _makePhoneCall() async {
+  Future<void> _makePhoneCall(String path) async {
     final Uri launchUri = Uri(
       scheme: 'tel',
-      path: '0632052041',
+      path: path,
     );
     await launch(launchUri.toString());
   }

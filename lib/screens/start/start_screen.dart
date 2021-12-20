@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'components/components.dart';
 
 class StartScreen extends StatefulWidget {
-  static String id = 'tutorial';
+  static String id = 'start';
   const StartScreen({Key? key}) : super(key: key);
 
   @override
