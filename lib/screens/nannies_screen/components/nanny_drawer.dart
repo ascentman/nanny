@@ -18,10 +18,10 @@ class NannyDrawer extends StatelessWidget {
             children: [
               Image.asset(
                 'assets/images/nanny.png',
-                height: 200,
+                height: 160,
               ),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               Text(
                 'UA kids: няня',
@@ -64,7 +64,7 @@ class NannyDrawer extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                'Версія програми: 1.0.1',
+                'Версія програми: 1.0.2',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.literata(),
               ),

@@ -2,12 +2,10 @@ import 'package:nanny/models/models.dart';
 import 'package:nanny/service/database_service.dart';
 
 abstract class INanniesRepo {
-  Stream<List<Nanny>> getNannies();
   Future<void> addNanny(Nanny nanny);
   Future<void> updateNanny(Nanny nanny);
   Future<void> deleteNanny(Nanny nanny);
-  Future<List<Nanny>> getOrderedNanniesBy(int option);
-  Future<List<Nanny>> getFilteredNanniesBy(String selectedWeekday);
+  Future<List<Nanny>> getOrderedNanniesBy(int option, String? selectedWeekday);
 }
 
 class NanniesRepo implements INanniesRepo {
@@ -16,22 +14,29 @@ class NanniesRepo implements INanniesRepo {
   NanniesRepo({required IDatabaseService db}) : _db = db;
 
   @override
-  Stream<List<Nanny>> getNannies() {
-    return _db.streamDataCollection(path: 'nannies').map(
-        (snap) => snap.docs.map((doc) => Nanny.fromSnapshot(doc)).toList());
-  }
-
-  @override
-  Future<List<Nanny>> getOrderedNanniesBy(int option) async {
+  Future<List<Nanny>> getOrderedNanniesBy(
+    int option,
+    String? selectedWeekday,
+  ) async {
     switch (option) {
       case 2:
-        return _filterBy('reviewsCount', isDescending: true);
+        return _filterBy(
+          orderBy: 'reviewsCount',
+          isDescending: true,
+          selectedWeekday: selectedWeekday,
+        );
       case 3:
-        return _filterBy('payment', isDescending: false);
-      case 4:
-        return _filterBy('payment', isDescending: true);
+        return _filterBy(
+          orderBy: 'payment',
+          isDescending: false,
+          selectedWeekday: selectedWeekday,
+        );
       default:
-        return _filterBy('rating', isDescending: true);
+        return _filterBy(
+          orderBy: 'rating',
+          isDescending: true,
+          selectedWeekday: selectedWeekday,
+        );
     }
   }
 
@@ -51,21 +56,15 @@ class NanniesRepo implements INanniesRepo {
     await _db.removeDocument(path: 'nannies', id: nanny.referenceId ?? '');
   }
 
-  Future<List<Nanny>> _filterBy(
-    String orderBy, {
+  Future<List<Nanny>> _filterBy({
+    required String orderBy,
     required bool isDescending,
+    String? selectedWeekday,
   }) async {
     return (await _db.orderedDataCollection(
-            path: 'nannies', orderBy: orderBy, isDescending: isDescending))
-        .docs
-        .map((snap) => Nanny.fromSnapshot(snap))
-        .toList();
-  }
-
-  @override
-  Future<List<Nanny>> getFilteredNanniesBy(String selectedWeekday) async {
-    return (await _db.filteredDataCollection(
       path: 'nannies',
+      orderBy: orderBy,
+      isDescending: isDescending,
       selectedWeekday: selectedWeekday,
     ))
         .docs

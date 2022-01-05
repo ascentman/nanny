@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 abstract class IDatabaseService {
-  Stream<QuerySnapshot> streamDataCollection({required String path});
-
   Future<DocumentSnapshot> getDocumentById({
     required String path,
     required String id,
@@ -12,11 +10,7 @@ abstract class IDatabaseService {
     required String path,
     required String orderBy,
     required bool isDescending,
-  });
-
-  Future<QuerySnapshot> filteredDataCollection({
-    required String path,
-    required String selectedWeekday,
+    String? selectedWeekday,
   });
 
   Future<void> removeDocument({
@@ -40,31 +34,24 @@ class DatabaseService implements IDatabaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   @override
-  Stream<QuerySnapshot> streamDataCollection({required String path}) {
-    return _db.collection(path).snapshots();
-  }
-
-  @override
   Future<QuerySnapshot> orderedDataCollection({
     required String path,
     required String orderBy,
     required bool isDescending,
+    String? selectedWeekday,
   }) {
-    return _db
-        .collection(path)
-        .orderBy(orderBy, descending: isDescending)
-        .get();
-  }
-
-  @override
-  Future<QuerySnapshot> filteredDataCollection({
-    required String path,
-    required String selectedWeekday,
-  }) {
-    return _db
-        .collection(path)
-        .where('workingDaysEng', arrayContains: selectedWeekday)
-        .get();
+    if (selectedWeekday != null) {
+      return _db
+          .collection(path)
+          .orderBy(orderBy, descending: isDescending)
+          .where('workingDaysEng', arrayContains: selectedWeekday)
+          .get();
+    } else {
+      return _db
+          .collection(path)
+          .orderBy(orderBy, descending: isDescending)
+          .get();
+    }
   }
 
   @override

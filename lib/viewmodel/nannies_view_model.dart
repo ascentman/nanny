@@ -1,6 +1,3 @@
-import 'dart:async';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nanny/models/models.dart';
@@ -43,17 +40,17 @@ class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
   List<Nanny> _nannies = [];
   bool _isLoading = false;
   static const nanniesPath = 'nannies';
-  late StreamSubscription<List<Nanny>> _nanniesSub;
   late String _selectedDateString;
   TimeOfDay _selectedStartHour = const TimeOfDay(hour: 9, minute: 0);
   TimeOfDay _selectedEndHour = const TimeOfDay(hour: 18, minute: 0);
   int _activeFilterOption = 1;
+  DateTime _chosenDateTime = DateTime.now();
 
   NanniesViewModel(
       {required ISelectedTimeRepo timeRepo, required INanniesRepo repo})
       : _repo = repo,
         _timeRepo = timeRepo {
-    _listenToNannies();
+    _fetchNannies();
     _selectedDateString = _dayAndMonthFormatted(null);
     _updateSelectedTime();
     _updateSelectedDate();
@@ -105,11 +102,16 @@ class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
 
   @override
   void selectPickerDate(DateTime? dateTime) async {
+    if (dateTime != null) {
+      _chosenDateTime = dateTime;
+    }
     _selectedDateString = _dayAndMonthFormatted(dateTime);
     _updateSelectedDate();
     if (dateTime != null) {
-      _nannies =
-          await _repo.getFilteredNanniesBy(DateFormat('EEEE').format(dateTime));
+      _nannies = await _repo.getOrderedNanniesBy(
+        _activeFilterOption,
+        DateFormat('EEEE').format(dateTime),
+      );
     }
     notifyListeners();
   }
@@ -136,7 +138,8 @@ class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
   void setFilter(int option, VoidCallback onFinish) async {
     _activeFilterOption = option;
     notifyListeners();
-    _nannies = await _repo.getOrderedNanniesBy(option);
+    _nannies = await _repo.getOrderedNanniesBy(
+        option, DateFormat('EEEE').format(_chosenDateTime));
     notifyListeners();
     onFinish();
   }
@@ -145,18 +148,13 @@ class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
   Nanny findById(String? id) =>
       _nannies.firstWhere((nanny) => nanny.referenceId == id);
 
-  @override
-  void dispose() {
-    _nanniesSub.cancel();
-    super.dispose();
-  }
-
-  void _listenToNannies() {
+  void _fetchNannies() async {
     _setLoadingState(true);
-    _nanniesSub = _repo.getNannies().listen((event) {
-      _nannies = event;
-      _setLoadingState(false);
-    });
+    _nannies = await _repo.getOrderedNanniesBy(
+      _activeFilterOption,
+      DateFormat('EEEE').format(_chosenDateTime),
+    );
+    _setLoadingState(false);
   }
 
   void _setLoadingState(bool isLoading) {

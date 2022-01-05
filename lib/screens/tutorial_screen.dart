@@ -18,8 +18,7 @@ class TutorialScreen extends StatelessWidget {
           style: GoogleFonts.literata(),
         ),
       ),
-      body: Container(
-        color: Colors.white,
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -49,32 +48,13 @@ class TutorialScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: DefaultTextStyle(
-                style: const TextStyle(
-                  fontSize: 24.0,
-                  fontFamily: 'Agne',
-                  fontWeight: FontWeight.w500,
-                  color: Colors.indigo,
-                ),
-                child: AnimatedTextKit(
-                  isRepeatingAnimation: false,
-                  pause: const Duration(seconds: 2),
-                  animatedTexts: [
-                    TypewriterAnimatedText(
-                      '1) Обрати потрібну дату і час',
-                      speed: const Duration(milliseconds: 50),
-                    ),
-                    TypewriterAnimatedText(
-                      '2) Обрати няню із доступних нянь в цей час',
-                      speed: const Duration(milliseconds: 50),
-                    ),
-                    TypewriterAnimatedText(
-                      '3) Перевірити деталі бронювання, вказати відповідні дані та очікувати дзвінка від нас ❤️',
-                      speed: const Duration(milliseconds: 50),
-                    ),
-                  ],
-                ),
-              ),
+              child: Text(
+                  '1) Обрати потрібну дату і час візиту.\n'
+                  '2) Обрати няню із доступних в цей день.\n'
+                  '3) Отримати своє бронювання, перевірити деталі на ньому, '
+                  'заповнити інформацію про себе та очікувати дзвінка від нас ❤️',
+                  style: GoogleFonts.literata(
+                      textStyle: const TextStyle(fontSize: 18))),
             ),
           ],
         ),

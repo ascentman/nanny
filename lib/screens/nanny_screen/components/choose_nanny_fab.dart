@@ -20,7 +20,7 @@ class ChooseNannyButton extends StatelessWidget {
           Navigator.pushNamed(context, BookingConfirmScreen.id);
         },
         label: Text(
-          'Вибрати',
+          'Обрати няню',
           style: GoogleFonts.literata(textStyle: const TextStyle(fontSize: 15)),
         ),
         icon: const Icon(Icons.check_outlined),

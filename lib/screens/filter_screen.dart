@@ -42,12 +42,6 @@ class FilterScreen extends StatelessWidget {
               groupValue: viewModel.activeFilterOption,
               onChanged: (v) => _chooseFilterOption(context, v ?? 3),
             ),
-            RadioListTile<int>(
-              title: const Text('за спаданням ціни'),
-              value: 4,
-              groupValue: viewModel.activeFilterOption,
-              onChanged: (v) => _chooseFilterOption(context, v ?? 4),
-            ),
           ],
         ),
       ),
