@@ -57,7 +57,8 @@ class ContactUsScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          _openLink('https://www.instagram.com/ua_kids_talne/');
+                          _openLink(Uri.parse(
+                              'https://www.instagram.com/ua_kids_talne/'));
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -85,7 +86,8 @@ class ContactUsScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          _openLink('https://www.facebook.com/uakidstalne');
+                          _openLink(Uri.parse(
+                              'https://www.facebook.com/uakidstalne'));
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -180,14 +182,13 @@ class ContactUsScreen extends StatelessWidget {
       scheme: 'tel',
       path: path,
     );
-    await launch(launchUri.toString());
+    await launchUrl(launchUri);
   }
 
-  Future<void> _openLink(String url) async {
-    if (await canLaunch(url)) {
-      await launch(
+  Future<void> _openLink(Uri url) async {
+    if (await canLaunchUrl(url)) {
+      await launchUrl(
         url,
-        universalLinksOnly: true,
       );
     } else {
       throw 'There was a problem to open the url: $url';

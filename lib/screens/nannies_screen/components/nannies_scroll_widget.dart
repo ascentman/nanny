@@ -151,6 +151,6 @@ class NanniesScrollWidget extends StatelessWidget {
       scheme: 'tel',
       path: '+380989903852',
     );
-    await launch(launchUri.toString());
+    await launchUrl(launchUri);
   }
 }

@@ -28,7 +28,7 @@ class _BookingConfirmScreenState extends State<BookingConfirmScreen> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<INannyViewModel>();
-    SchedulerBinding.instance?.addPostFrameCallback((_) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
       _alertListener(() => viewModel.resetNannyState());
     });
     return WillPopScope(
