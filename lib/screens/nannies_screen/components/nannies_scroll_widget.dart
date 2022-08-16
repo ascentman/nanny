@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nanny/screens/city_screen.dart';
 import 'package:nanny/screens/nannies_screen/components/sliver_persistent_header.dart';
 import 'package:nanny/screens/screens.dart';
 import 'package:nanny/viewmodel/nannies_view_model.dart';
@@ -80,7 +81,7 @@ class NanniesScrollWidget extends StatelessWidget {
                                         viewModel.selectEndHour(v),
                                   );
                                 },
-                                icon: const Icon(Icons.timer_rounded),
+                                icon: const Icon(Icons.timer_sharp),
                                 label: Text(viewModel.timeRangeString),
                               ),
                             ],
@@ -105,7 +106,17 @@ class NanniesScrollWidget extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('${viewModel.getNanniesCount()} у м.Тальне'),
+                      Row(
+                        children: [
+                          Text(viewModel.getNanniesCount()),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, CityScreen.id);
+                            },
+                            child: const Text('м.Тальне'),
+                          )
+                        ],
+                      ),
                       TextButton.icon(
                         onPressed: () {
                           Navigator.pushNamed(context, FilterScreen.id);

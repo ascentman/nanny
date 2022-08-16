@@ -5,6 +5,7 @@ import 'package:nanny/screens/contact_us.dart';
 import 'package:nanny/viewmodel/nanny_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 class BookingConfirmScreen extends StatefulWidget {
   static String id = 'booking';
@@ -18,11 +19,15 @@ class BookingConfirmScreen extends StatefulWidget {
 class _BookingConfirmScreenState extends State<BookingConfirmScreen> {
   final TextEditingController _nameC = TextEditingController();
   final TextEditingController _phoneC = TextEditingController();
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {
     super.initState();
-    // context.read<INannyViewModel>().addListener(_alertListenerFunc);
+
+    analytics.logScreenView(
+      screenName: 'booking-screen',
+    );
   }
 
   @override

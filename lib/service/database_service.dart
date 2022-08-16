@@ -43,8 +43,9 @@ class DatabaseService implements IDatabaseService {
     if (selectedWeekday != null) {
       return _db
           .collection(path)
-          .orderBy(orderBy, descending: isDescending)
+          .where('town', isEqualTo: 'Тальне')
           .where('workingDaysEng', arrayContains: selectedWeekday)
+          .orderBy(orderBy, descending: isDescending)
           .get();
     } else {
       return _db

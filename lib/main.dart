@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:nanny/screens/city_screen.dart';
 import 'package:nanny/screens/nannies_screen/components/dismiss_keyboard.dart';
 import 'package:nanny/service/locator_service.dart';
 import 'package:nanny/viewmodel/nannies_view_model.dart';
@@ -63,6 +64,7 @@ class MyApp extends StatelessWidget {
           StartScreen.id: (context) => const StartScreen(),
           NanniesScreen.id: (context) => const NanniesScreen(),
           FilterScreen.id: (context) => const FilterScreen(),
+          CityScreen.id: (context) => const CityScreen(),
           NannyScreen.id: (context) => const NannyScreen(),
           NannyScreen.id: (context) => const NannyScreen(),
           AboutUsScreen.id: (context) => const AboutUsScreen(),

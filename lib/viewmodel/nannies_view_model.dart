@@ -31,6 +31,8 @@ abstract class INanniesViewModel with ChangeNotifier {
 
   void setFilter(int option, VoidCallback onFinish);
 
+  void setCity(int option, VoidCallback onFinish);
+
   Nanny findById(String? id);
 }
 
@@ -86,17 +88,17 @@ class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
   @override
   String getNanniesCount() {
     if (_nannies.length > 10 && _nannies.length < 20) {
-      return '${_nannies.length} нянь';
+      return '${_nannies.length} нянь у';
     }
     switch ((_nannies.length % 10)) {
       case 1:
-        return '${_nannies.length} няня';
+        return '${_nannies.length} няня у';
       case 2:
       case 3:
       case 4:
-        return '${_nannies.length} няні';
+        return '${_nannies.length} няні у';
       default:
-        return '${_nannies.length} нянь';
+        return '${_nannies.length} нянь у';
     }
   }
 
@@ -142,6 +144,16 @@ class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
         option, DateFormat('EEEE').format(_chosenDateTime));
     notifyListeners();
     onFinish();
+  }
+
+  @override
+  void setCity(int option, VoidCallback onFinish) async {
+    // _activeFilterOption = option;
+    // notifyListeners();
+    // _nannies = await _repo.getOrderedNanniesBy(
+    //     option, DateFormat('EEEE').format(_chosenDateTime));
+    // notifyListeners();
+    // onFinish();
   }
 
   @override

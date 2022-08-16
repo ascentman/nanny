@@ -26,8 +26,9 @@ class NannyRepo implements INannyRepo {
     required String phone,
   }) async {
     http.Response response = await _emailService.sendEmail(
-        message: 'Замовлення на: $date, $time.\nВід: $name, $phone',
-        nannyEmail: nannyEmail);
+      message: 'Замовлення на: $date, $time.\nВід: $name, $phone',
+      nannyEmail: nannyEmail,
+    );
     return response.statusCode;
   }
 }

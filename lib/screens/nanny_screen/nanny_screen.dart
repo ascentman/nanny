@@ -107,14 +107,14 @@ class NannyScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Сертифікати (${viewModel.nanny.certificates.length})',
+                  'Відгуки (${viewModel.nanny.reviews.length})',
                   style: GoogleFonts.literata(
                     textStyle: const TextStyle(fontSize: 15),
                   ),
                   textAlign: TextAlign.center,
                 ),
                 Text(
-                  'Відгуки (${viewModel.nanny.reviews.length})',
+                  'Сертифікати (${viewModel.nanny.certificates.length})',
                   style: GoogleFonts.literata(
                     textStyle: const TextStyle(fontSize: 15),
                   ),
@@ -197,18 +197,18 @@ class NannyScreen extends StatelessWidget {
                               height: 10,
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              'Додатково:',
-                              style: GoogleFonts.literata(
-                                textStyle: const TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 17,
-                                ),
-                              ),
-                            ),
-                          ),
+                          // Padding(
+                          //   padding: const EdgeInsets.symmetric(horizontal: 10),
+                          //   child: Text(
+                          //     'Додатково:',
+                          //     style: GoogleFonts.literata(
+                          //       textStyle: const TextStyle(
+                          //         fontWeight: FontWeight.w700,
+                          //         fontSize: 17,
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                           const SizedBox(
                             height: 10,
                           ),
@@ -227,26 +227,6 @@ class NannyScreen extends StatelessWidget {
                     ),
                   );
                 }),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: ImageSlideshow(
-                    initialPage: 0,
-                    indicatorColor: Colors.indigo,
-                    indicatorBackgroundColor: Colors.white,
-                    children: [
-                      for (String url in viewModel.nanny.certificates)
-                        CachedNetworkImage(
-                          imageUrl: url,
-                          fit: BoxFit.contain,
-                          placeholder: (context, url) =>
-                              const Center(child: CircularProgressIndicator()),
-                          fadeOutDuration: const Duration(milliseconds: 100),
-                          errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
-                        ),
-                    ],
-                  ),
-                ),
                 ListView.separated(
                   padding: const EdgeInsets.all(8),
                   itemCount: viewModel.nanny.reviews.length,
@@ -318,6 +298,26 @@ class NannyScreen extends StatelessWidget {
                       height: 1,
                     );
                   },
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: ImageSlideshow(
+                    initialPage: 0,
+                    indicatorColor: Colors.indigo,
+                    indicatorBackgroundColor: Colors.white,
+                    children: [
+                      for (String url in viewModel.nanny.certificates)
+                        CachedNetworkImage(
+                          imageUrl: url,
+                          fit: BoxFit.contain,
+                          placeholder: (context, url) =>
+                              const Center(child: CircularProgressIndicator()),
+                          fadeOutDuration: const Duration(milliseconds: 100),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                        ),
+                    ],
+                  ),
                 ),
               ],
               onChange: (_) => () {},
