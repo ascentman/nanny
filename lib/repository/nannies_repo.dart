@@ -5,7 +5,12 @@ abstract class INanniesRepo {
   Future<void> addNanny(Nanny nanny);
   Future<void> updateNanny(Nanny nanny);
   Future<void> deleteNanny(Nanny nanny);
-  Future<List<Nanny>> getOrderedNanniesBy(int option, String? selectedWeekday);
+  Future<List<Nanny>> getOrderedNanniesBy(
+    int option,
+    String? selectedWeekday,
+    int selectedCityOption,
+  );
+  Future<String> getSelectedCity(int selectedCityOption);
 }
 
 class NanniesRepo implements INanniesRepo {
@@ -17,6 +22,7 @@ class NanniesRepo implements INanniesRepo {
   Future<List<Nanny>> getOrderedNanniesBy(
     int option,
     String? selectedWeekday,
+    int selectedCityOption,
   ) async {
     switch (option) {
       case 2:
@@ -24,18 +30,21 @@ class NanniesRepo implements INanniesRepo {
           orderBy: 'reviewsCount',
           isDescending: true,
           selectedWeekday: selectedWeekday,
+          selectedCityOption: selectedCityOption,
         );
       case 3:
         return _filterBy(
           orderBy: 'payment',
           isDescending: false,
           selectedWeekday: selectedWeekday,
+          selectedCityOption: selectedCityOption,
         );
       default:
         return _filterBy(
           orderBy: 'rating',
           isDescending: true,
           selectedWeekday: selectedWeekday,
+          selectedCityOption: selectedCityOption,
         );
     }
   }
@@ -60,15 +69,25 @@ class NanniesRepo implements INanniesRepo {
     required String orderBy,
     required bool isDescending,
     String? selectedWeekday,
+    int? selectedCityOption,
   }) async {
     return (await _db.orderedDataCollection(
       path: 'nannies',
       orderBy: orderBy,
       isDescending: isDescending,
       selectedWeekday: selectedWeekday,
+      selectedCityOption: selectedCityOption,
     ))
         .docs
         .map((snap) => Nanny.fromSnapshot(snap))
         .toList();
+  }
+
+  @override
+  Future<String> getSelectedCity(int selectedCityOption) async {
+    final citiesCollection = await _db.getDocuments(path: 'cities');
+    final cities =
+        citiesCollection.docs.map((snap) => City.fromMap(snap.data())).toList();
+    return cities.elementAt(selectedCityOption - 1).name;
   }
 }

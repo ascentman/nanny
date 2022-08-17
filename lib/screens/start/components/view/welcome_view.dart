@@ -104,7 +104,7 @@ class WelcomeView extends StatelessWidget {
                   padding: const EdgeInsets.only(
                       left: 20, right: 20, top: 16, bottom: 16),
                   child: AutoSizeText(
-                    'Коли у вас виникнуть будь-які запитання по роботі сервісу - напишіть нам, ми будемо раді допомогти❤.️',
+                    'Коли у вас виникнуть будь-які запитання по роботі сервісу - напишіть або подзвоніть нам на номер 0632052041, ми будемо раді допомогти❤.️',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.literata(
                       textStyle: const TextStyle(fontSize: 20),

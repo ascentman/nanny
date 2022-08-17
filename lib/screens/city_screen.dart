@@ -27,8 +27,14 @@ class CityScreen extends StatelessWidget {
             RadioListTile<int>(
               title: const Text('Тальне'),
               value: 1,
-              groupValue: viewModel.activeFilterOption,
+              groupValue: viewModel.selectedCityOption,
               onChanged: (v) => _chooseCityOption(context, v ?? 1),
+            ),
+            RadioListTile<int>(
+              title: const Text('Львів'),
+              value: 2,
+              groupValue: viewModel.selectedCityOption,
+              onChanged: (v) => _chooseCityOption(context, v ?? 2),
             ),
           ],
         ),
@@ -36,8 +42,8 @@ class CityScreen extends StatelessWidget {
     );
   }
 
-  void _chooseCityOption(BuildContext context, int option) {
-    context.read<INanniesViewModel>().setCity(option, () {
+  void _chooseCityOption(BuildContext context, int cityOption) {
+    context.read<INanniesViewModel>().setCity(cityOption, () {
       Navigator.pop(context);
     });
   }

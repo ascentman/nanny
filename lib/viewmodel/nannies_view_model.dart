@@ -11,6 +11,12 @@ abstract class INanniesViewModel with ChangeNotifier {
 
   int get activeFilterOption;
 
+  int get selectedCityOption;
+
+  String get selectedCity;
+
+  DateTime get chosenDateTime;
+
   String get selectedDateString;
 
   TimeOfDay get selectedStartHour;
@@ -31,7 +37,7 @@ abstract class INanniesViewModel with ChangeNotifier {
 
   void setFilter(int option, VoidCallback onFinish);
 
-  void setCity(int option, VoidCallback onFinish);
+  void setCity(int city, VoidCallback onFinish);
 
   Nanny findById(String? id);
 }
@@ -46,6 +52,8 @@ class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
   TimeOfDay _selectedStartHour = const TimeOfDay(hour: 9, minute: 0);
   TimeOfDay _selectedEndHour = const TimeOfDay(hour: 18, minute: 0);
   int _activeFilterOption = 1;
+  int _selectedCityOption = 1;
+  String _selectedCity = 'Тальне';
   DateTime _chosenDateTime = DateTime.now();
 
   NanniesViewModel(
@@ -62,10 +70,19 @@ class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
   int get activeFilterOption => _activeFilterOption;
 
   @override
+  int get selectedCityOption => _selectedCityOption;
+
+  @override
+  String get selectedCity => _selectedCity;
+
+  @override
   List<Nanny> get nannies => _nannies;
 
   @override
   bool get isLoading => _isLoading;
+
+  @override
+  DateTime get chosenDateTime => _chosenDateTime;
 
   @override
   String get selectedDateString => _selectedDateString;
@@ -113,6 +130,7 @@ class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
       _nannies = await _repo.getOrderedNanniesBy(
         _activeFilterOption,
         DateFormat('EEEE').format(dateTime),
+        _selectedCityOption,
       );
     }
     notifyListeners();
@@ -141,19 +159,26 @@ class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
     _activeFilterOption = option;
     notifyListeners();
     _nannies = await _repo.getOrderedNanniesBy(
-        option, DateFormat('EEEE').format(_chosenDateTime));
+      option,
+      DateFormat('EEEE').format(_chosenDateTime),
+      _selectedCityOption,
+    );
     notifyListeners();
     onFinish();
   }
 
   @override
-  void setCity(int option, VoidCallback onFinish) async {
-    // _activeFilterOption = option;
-    // notifyListeners();
-    // _nannies = await _repo.getOrderedNanniesBy(
-    //     option, DateFormat('EEEE').format(_chosenDateTime));
-    // notifyListeners();
-    // onFinish();
+  void setCity(int cityOption, VoidCallback onFinish) async {
+    _selectedCityOption = cityOption;
+    _selectedCity = await _repo.getSelectedCity(cityOption);
+    notifyListeners();
+    _nannies = await _repo.getOrderedNanniesBy(
+      _activeFilterOption,
+      DateFormat('EEEE').format(_chosenDateTime),
+      _selectedCityOption,
+    );
+    notifyListeners();
+    onFinish();
   }
 
   @override
@@ -165,6 +190,7 @@ class NanniesViewModel with ChangeNotifier implements INanniesViewModel {
     _nannies = await _repo.getOrderedNanniesBy(
       _activeFilterOption,
       DateFormat('EEEE').format(_chosenDateTime),
+      _selectedCityOption,
     );
     _setLoadingState(false);
   }

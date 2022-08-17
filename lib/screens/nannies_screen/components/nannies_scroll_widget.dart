@@ -48,7 +48,7 @@ class NanniesScrollWidget extends StatelessWidget {
                                 onPressed: () {
                                   showDatePicker(
                                     context: context,
-                                    initialDate: DateTime.now(),
+                                    initialDate: viewModel.chosenDateTime,
                                     firstDate: DateTime(2021),
                                     lastDate: DateTime(2050),
                                   ).then((v) => viewModel.selectPickerDate(v));
@@ -113,7 +113,7 @@ class NanniesScrollWidget extends StatelessWidget {
                             onPressed: () {
                               Navigator.pushNamed(context, CityScreen.id);
                             },
-                            child: const Text('м.Тальне'),
+                            child: Text('м.${viewModel.selectedCity}'),
                           )
                         ],
                       ),
@@ -142,13 +142,15 @@ class NanniesScrollWidget extends StatelessWidget {
                       onTap: () {
                         _makePhoneCall();
                       },
-                      child: Text(
-                        'На жаль, на цей день усі няні зайняті. Подзвоніть нам. Ми постараємося допомогти: 098 990 38 52',
-                        style: GoogleFonts.literata(
-                          textStyle: const TextStyle(
-                              fontSize: 16, color: Colors.blueGrey),
+                      child: SizedBox(
+                        child: Text(
+                          'На жаль, на цей день усі няні зайняті. Подзвоніть нам. Ми постараємося допомогти: 063 205 20 41',
+                          style: GoogleFonts.literata(
+                            textStyle: const TextStyle(
+                                fontSize: 16, color: Colors.blueGrey),
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),
@@ -160,7 +162,7 @@ class NanniesScrollWidget extends StatelessWidget {
   Future<void> _makePhoneCall() async {
     final Uri launchUri = Uri(
       scheme: 'tel',
-      path: '+380989903852',
+      path: '0632052041',
     );
     await launchUrl(launchUri);
   }
