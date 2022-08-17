@@ -191,35 +191,10 @@ class NannyScreen extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 20),
+                            padding: const EdgeInsets.symmetric(vertical: 30),
                             child: Container(
                               color: Colors.grey.shade200,
                               height: 10,
-                            ),
-                          ),
-                          // Padding(
-                          //   padding: const EdgeInsets.symmetric(horizontal: 10),
-                          //   child: Text(
-                          //     'Додатково:',
-                          //     style: GoogleFonts.literata(
-                          //       textStyle: const TextStyle(
-                          //         fontWeight: FontWeight.w700,
-                          //         fontSize: 17,
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: viewModel.nanny.additionalInfo.length,
-                            itemBuilder: (context, i) => AdditionalInfoRow(
-                              icon: viewModel.nanny.additionalInfo[i].icon
-                                  .toInt(),
-                              info: viewModel.nanny.additionalInfo[i].text,
                             ),
                           ),
                         ],
