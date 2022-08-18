@@ -28,11 +28,11 @@ dependencies:
   http: ^0.13.4
   intl: ^0.17.0
   flutter_rating_bar: ^4.0.0
-  flutter_email_sender: ^5.0.2
-  font_awesome_flutter: ^9.2.0
+  flutter_email_sender: ^5.1.0
+  font_awesome_flutter: ^10.1.0
   url_launcher: ^6.0.15
   shared_preferences: ^2.0.9
-  google_fonts: ^2.1.0
+  google_fonts: ^3.0.1
   cached_network_image: ^3.2.0
   auto_size_text: ^3.0.0
   animated_text_kit: ^4.2.1
@@ -40,7 +40,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.1
 
 flutter:
   uses-material-design: true

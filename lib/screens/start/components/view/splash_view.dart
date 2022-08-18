@@ -84,7 +84,7 @@ class StartContainer extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 8, right: 8),
           child: AutoSizeText(
-            '"Любов до дітей понад усе❤️"',
+            '"Професійно та з любов\'ю❤️"',
             textAlign: TextAlign.center,
             style: GoogleFonts.literata(
               textStyle: const TextStyle(fontSize: 18.0),
