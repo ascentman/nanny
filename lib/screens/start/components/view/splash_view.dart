@@ -9,13 +9,13 @@ class SplashView extends StatefulWidget {
       : super(key: key);
 
   @override
-  _SplashViewState createState() => _SplashViewState();
+  SplashViewState createState() => SplashViewState();
 }
 
-class _SplashViewState extends State<SplashView> {
+class SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
-    final _interconnection =
+    final interconnection =
         Tween<Offset>(begin: const Offset(0, 0), end: const Offset(0.0, -1.0))
             .animate(CurvedAnimation(
       parent: widget.animationController,
@@ -26,7 +26,7 @@ class _SplashViewState extends State<SplashView> {
       ),
     ));
     return SlideTransition(
-      position: _interconnection,
+      position: interconnection,
       child: SingleChildScrollView(
         child: Stack(
           alignment: Alignment.bottomCenter,

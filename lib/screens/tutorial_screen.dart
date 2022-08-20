@@ -20,7 +20,7 @@ class TutorialScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
@@ -37,17 +37,18 @@ class TutorialScreen extends StatelessWidget {
                     colors: [
                       const Color.fromARGB(255, 210, 170, 66),
                       Colors.indigo,
+                      const Color.fromARGB(255, 210, 170, 66),
                     ],
                   ),
                 ],
-                isRepeatingAnimation: false,
+                isRepeatingAnimation: true,
               ),
             ),
             Image.asset(
               'assets/images/tutorial3.png',
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.all(20),
               child: Text(
                   '1) Обрати потрібну дату і час візиту.\n'
                   '2) Обрати няню із доступних в цей день.\n'

@@ -58,6 +58,8 @@ class NannyViewModel with ChangeNotifier implements INannyViewModel {
     onFinish();
     int result = await _repo.sendEmail(
       nannyEmail: nanny.email,
+      nannyName: nanny.name,
+      city: nanny.town,
       date: _timeRepo.selectedDate,
       time: _timeRepo.selectedTimeRange,
       name: name,

@@ -68,7 +68,7 @@ class _BookingConfirmScreenState extends State<BookingConfirmScreen> {
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Text(
-                          'Для підтвердження замовлення вкажіть своє ім\'я і мобільний телефон. Ми до вас зателефонуємо ❤️.',
+                          'Перевірте інформацію щодо вашого замовлення. Для його підтвердження вкажіть своє ім\'я і мобільний телефон. Ми до вас зателефонуємо ❤️.',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.literata(
                             textStyle: const TextStyle(
@@ -126,6 +126,17 @@ class _BookingConfirmScreenState extends State<BookingConfirmScreen> {
                                 ),
                               ),
                             ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        child: Text(
+                          '*Зверніть увагу: у ціну включено лише догляд за однією дитиною за 1год. За кожну наступну дитину здійснюється доплата +50%. Додаткові послуги занять з розвитку, музики тощо оплачуються додатково. Мінімальне замовлення - 3 години. Дякуємо вам за довіру!❤️',
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.literata(
+                            textStyle: const TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 12),
                           ),
                         ),
                       ),

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:nanny/screens/nannies_screen/nannies_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,10 +10,10 @@ class StartScreen extends StatefulWidget {
   const StartScreen({Key? key}) : super(key: key);
 
   @override
-  _StartScreenState createState() => _StartScreenState();
+  StartScreenState createState() => StartScreenState();
 }
 
-class _StartScreenState extends State<StartScreen>
+class StartScreenState extends State<StartScreen>
     with TickerProviderStateMixin {
   AnimationController? _animationController;
 
@@ -34,50 +35,52 @@ class _StartScreenState extends State<StartScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF7EBE1),
-      body: Stack(
-        children: [
-          SplashView(
-            animationController: _animationController!,
-          ),
-          _HorizontalSlider(
-            onSwipeToLeft: _onBackClick,
-            onSwipeToRight: _onNextClick,
-            child: ComfortableView(
-              animationController: _animationController!,
-            ),
-          ),
-          _HorizontalSlider(
-            onSwipeToLeft: _onBackClick,
-            onSwipeToRight: _onNextClick,
-            child: OurPersonalView(
-              animationController: _animationController!,
-            ),
-          ),
-          _HorizontalSlider(
-            onSwipeToLeft: _onBackClick,
-            onSwipeToRight: _onNextClick,
-            child: CooperationVew(
-              animationController: _animationController!,
-            ),
-          ),
-          _HorizontalSlider(
-            onSwipeToLeft: _onBackClick,
-            onSwipeToRight: null,
-            child: WelcomeView(
-              animationController: _animationController!,
-            ),
-          ),
-          TopBackSkipView(
-            onBackClick: _onBackClick,
-            onSkipClick: _onSkipClick,
-            animationController: _animationController!,
-          ),
-          CenterNextButton(
-            animationController: _animationController!,
-            onNextClick: _onNextClick,
-          ),
-        ],
-      ),
+      body: !kIsWeb
+          ? Stack(
+              children: [
+                SplashView(
+                  animationController: _animationController!,
+                ),
+                _HorizontalSlider(
+                  onSwipeToLeft: _onBackClick,
+                  onSwipeToRight: _onNextClick,
+                  child: ComfortableView(
+                    animationController: _animationController!,
+                  ),
+                ),
+                _HorizontalSlider(
+                  onSwipeToLeft: _onBackClick,
+                  onSwipeToRight: _onNextClick,
+                  child: OurPersonalView(
+                    animationController: _animationController!,
+                  ),
+                ),
+                _HorizontalSlider(
+                  onSwipeToLeft: _onBackClick,
+                  onSwipeToRight: _onNextClick,
+                  child: CooperationVew(
+                    animationController: _animationController!,
+                  ),
+                ),
+                _HorizontalSlider(
+                  onSwipeToLeft: _onBackClick,
+                  onSwipeToRight: null,
+                  child: WelcomeView(
+                    animationController: _animationController!,
+                  ),
+                ),
+                TopBackSkipView(
+                  onBackClick: _onBackClick,
+                  onSkipClick: _onSkipClick,
+                  animationController: _animationController!,
+                ),
+                CenterNextButton(
+                  animationController: _animationController!,
+                  onNextClick: _onNextClick,
+                ),
+              ],
+            )
+          : const NanniesScreen(),
     );
   }
 

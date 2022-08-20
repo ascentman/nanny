@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nanny/screens/screens.dart';
@@ -35,12 +36,13 @@ class NannyDrawer extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              MenuButton(
-                title: 'Про сервіс',
-                onTap: () {
-                  Navigator.pushReplacementNamed(context, StartScreen.id);
-                },
-              ),
+              if (!kIsWeb)
+                MenuButton(
+                  title: 'Про сервіс',
+                  onTap: () {
+                    Navigator.pushReplacementNamed(context, StartScreen.id);
+                  },
+                ),
               MenuButton(
                 title: 'Інструкція',
                 onTap: () {

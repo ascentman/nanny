@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:nanny/firebase_options.dart';
 import 'package:nanny/screens/city_screen.dart';
 import 'package:nanny/screens/nannies_screen/components/dismiss_keyboard.dart';
 import 'package:nanny/service/locator_service.dart';
@@ -21,7 +22,7 @@ Future<void> main() async {
   if (prefs.getBool('showNannies') ?? false) {
     initScreen = NanniesScreen.id;
   }
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   runApp(
     MultiProvider(
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
           Locale('en'),
         ],
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'UA kids: няня',
         theme: ThemeData(
           primarySwatch: Colors.indigo,
         ),

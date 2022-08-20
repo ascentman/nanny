@@ -44,8 +44,9 @@ class NanniesList extends StatelessWidget {
                           progressIndicatorBuilder:
                               (context, url, downloadProgress) =>
                                   CircularProgressIndicator(
-                                      color: Colors.white,
-                                      value: downloadProgress.progress),
+                            color: Colors.white,
+                            value: downloadProgress.progress,
+                          ),
                           errorWidget: (context, url, error) => const Icon(
                             Icons.error,
                             size: 40,

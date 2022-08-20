@@ -12,7 +12,7 @@ class CenterNextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _topMoveAnimation =
+    final topMoveAnimation =
         Tween<Offset>(begin: const Offset(0, 5), end: const Offset(0, 0))
             .animate(CurvedAnimation(
       parent: animationController,
@@ -22,7 +22,7 @@ class CenterNextButton extends StatelessWidget {
         curve: Curves.fastOutSlowIn,
       ),
     ));
-    final _searchNannyMoveAnimation = Tween<double>(begin: 0, end: 1.0).animate(
+    final searchNannyMoveAnimation = Tween<double>(begin: 0, end: 1.0).animate(
       CurvedAnimation(
         parent: animationController,
         curve: const Interval(
@@ -40,7 +40,7 @@ class CenterNextButton extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SlideTransition(
-            position: _topMoveAnimation,
+            position: topMoveAnimation,
             child: AnimatedBuilder(
               animation: animationController,
               builder: (context, child) => AnimatedOpacity(
@@ -55,22 +55,22 @@ class CenterNextButton extends StatelessWidget {
           ),
           Center(
             child: SlideTransition(
-              position: _topMoveAnimation,
+              position: topMoveAnimation,
               child: AnimatedBuilder(
                 animation: animationController,
                 builder: (context, child) => Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: Container(
                     height: 56,
-                    width: 56 + (200 * _searchNannyMoveAnimation.value),
+                    width: 56 + (200 * searchNannyMoveAnimation.value),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(
-                          8 + 32 * (1 - _searchNannyMoveAnimation.value)),
+                          8 + 32 * (1 - searchNannyMoveAnimation.value)),
                       color: Colors.indigo,
                     ),
                     child: PageTransitionSwitcher(
                       duration: const Duration(milliseconds: 480),
-                      reverse: _searchNannyMoveAnimation.value < 0.7,
+                      reverse: searchNannyMoveAnimation.value < 0.7,
                       transitionBuilder: (
                         Widget child,
                         Animation<double> animation,
@@ -78,13 +78,13 @@ class CenterNextButton extends StatelessWidget {
                       ) {
                         return SharedAxisTransition(
                           fillColor: Colors.transparent,
-                          child: child,
                           animation: animation,
                           secondaryAnimation: secondaryAnimation,
                           transitionType: SharedAxisTransitionType.vertical,
+                          child: child,
                         );
                       },
-                      child: _searchNannyMoveAnimation.value > 0.7
+                      child: searchNannyMoveAnimation.value > 0.7
                           ? InkWell(
                               onTap: onNextClick,
                               child: Padding(

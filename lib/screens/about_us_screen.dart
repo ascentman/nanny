@@ -29,33 +29,36 @@ class AboutUsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 40.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(15),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset:
-                            const Offset(1, 2), // changes position of shadow
+              LayoutBuilder(builder: (context, constraints) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: constraints.maxWidth > 500 ? 500 : 40.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(15),
                       ),
-                    ],
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(15.0),
-                    child: Image.asset(
-                      'assets/images/we.png',
-                      fit: BoxFit.contain,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset:
+                              const Offset(1, 2), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15.0),
+                      child: Image.asset(
+                        'assets/images/we.png',
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
-                ),
-              ),
+                );
+              }),
               Padding(
                 padding: const EdgeInsets.all(24.0),
                 child: Text(
