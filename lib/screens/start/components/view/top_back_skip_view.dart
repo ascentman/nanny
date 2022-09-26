@@ -15,7 +15,7 @@ class TopBackSkipView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _animation =
+    final animation =
         Tween<Offset>(begin: const Offset(0, -1), end: const Offset(0.0, 0.0))
             .animate(
       CurvedAnimation(
@@ -27,7 +27,7 @@ class TopBackSkipView extends StatelessWidget {
         ),
       ),
     );
-    final _skipAnimation =
+    final skipAnimation =
         Tween<Offset>(begin: const Offset(0, 0), end: const Offset(2, 0))
             .animate(CurvedAnimation(
       parent: animationController,
@@ -39,7 +39,7 @@ class TopBackSkipView extends StatelessWidget {
     ));
 
     return SlideTransition(
-      position: _animation,
+      position: animation,
       child: Padding(
         padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
         child: SizedBox(
@@ -55,7 +55,7 @@ class TopBackSkipView extends StatelessWidget {
                   //   ),
                 ),
                 SlideTransition(
-                  position: _skipAnimation,
+                  position: skipAnimation,
                   child: SizedBox(
                     width: 70,
                     child: IconButton(

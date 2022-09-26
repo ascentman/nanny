@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nanny/screens/prices_screen.dart';
 import 'package:nanny/screens/screens.dart';
 
 import 'menu_button.dart';
@@ -48,6 +49,13 @@ class NannyDrawer extends StatelessWidget {
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.pushNamed(context, TutorialScreen.id);
+                },
+              ),
+              MenuButton(
+                title: 'Ціни',
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, PricesScreen.id);
                 },
               ),
               MenuButton(

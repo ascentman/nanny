@@ -15,6 +15,7 @@ class MenuButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 3),
       child: GestureDetector(
+        onTap: onTap,
         child: Container(
           decoration: const BoxDecoration(
             color: Colors.indigo,
@@ -23,6 +24,7 @@ class MenuButton extends StatelessWidget {
               Radius.circular(5.0),
             ),
           ),
+          height: 50,
           child: Center(
             child: Text(
               title,
@@ -32,9 +34,7 @@ class MenuButton extends StatelessWidget {
               ),
             ),
           ),
-          height: 50,
         ),
-        onTap: onTap,
       ),
     );
   }

@@ -121,7 +121,7 @@ class ContactUsScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
                             Icon(
-                              FontAwesomeIcons.mobileAlt,
+                              FontAwesomeIcons.mobileScreenButton,
                               size: 24,
                             ),
                             SizedBox(
@@ -149,7 +149,7 @@ class ContactUsScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
                             Icon(
-                              FontAwesomeIcons.mobileAlt,
+                              FontAwesomeIcons.mobileScreenButton,
                               size: 24,
                             ),
                             SizedBox(
@@ -269,6 +269,7 @@ class _SendEmailFormState extends State<SendEmailForm> {
               } catch (e) {
                 debugPrint(e.toString());
               }
+              if (!mounted) return;
               Navigator.of(context)
                   .pushNamedAndRemoveUntil(NanniesScreen.id, (route) => false);
             },

@@ -10,7 +10,7 @@ class CooperationVew extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _firstHalfAnimation =
+    final firstHalfAnimation =
         Tween<Offset>(begin: const Offset(1, 0), end: const Offset(0, 0))
             .animate(CurvedAnimation(
       parent: animationController,
@@ -20,7 +20,7 @@ class CooperationVew extends StatelessWidget {
         curve: Curves.fastOutSlowIn,
       ),
     ));
-    final _secondHalfAnimation =
+    final secondHalfAnimation =
         Tween<Offset>(begin: const Offset(0, 0), end: const Offset(-1, 0))
             .animate(CurvedAnimation(
       parent: animationController,
@@ -31,7 +31,7 @@ class CooperationVew extends StatelessWidget {
       ),
     ));
 
-    final _moodFirstHalfAnimation =
+    final moodFirstHalfAnimation =
         Tween<Offset>(begin: const Offset(2, 0), end: const Offset(0, 0))
             .animate(
       CurvedAnimation(
@@ -43,7 +43,7 @@ class CooperationVew extends StatelessWidget {
         ),
       ),
     );
-    final _moodSecondHalfAnimation =
+    final moodSecondHalfAnimation =
         Tween<Offset>(begin: const Offset(0, 0), end: const Offset(-2, 0))
             .animate(CurvedAnimation(
       parent: animationController,
@@ -53,7 +53,7 @@ class CooperationVew extends StatelessWidget {
         curve: Curves.fastOutSlowIn,
       ),
     ));
-    final _imageFirstHalfAnimation =
+    final imageFirstHalfAnimation =
         Tween<Offset>(begin: const Offset(4, 0), end: const Offset(0, 0))
             .animate(CurvedAnimation(
       parent: animationController,
@@ -63,7 +63,7 @@ class CooperationVew extends StatelessWidget {
         curve: Curves.fastOutSlowIn,
       ),
     ));
-    final _imageSecondHalfAnimation =
+    final imageSecondHalfAnimation =
         Tween<Offset>(begin: const Offset(0, 0), end: const Offset(-4, 0))
             .animate(
       CurvedAnimation(
@@ -77,9 +77,9 @@ class CooperationVew extends StatelessWidget {
     );
 
     return SlideTransition(
-      position: _firstHalfAnimation,
+      position: firstHalfAnimation,
       child: SlideTransition(
-        position: _secondHalfAnimation,
+        position: secondHalfAnimation,
         child: Padding(
           padding: const EdgeInsets.only(bottom: 60, top: 40),
           child: Column(
@@ -105,14 +105,14 @@ class CooperationVew extends StatelessWidget {
               Flexible(
                 flex: 5,
                 child: SlideTransition(
-                  position: _moodFirstHalfAnimation,
+                  position: moodFirstHalfAnimation,
                   child: SlideTransition(
-                    position: _moodSecondHalfAnimation,
+                    position: moodSecondHalfAnimation,
                     child: Padding(
                       padding: const EdgeInsets.only(
                           left: 20, right: 20, top: 10, bottom: 0),
                       child: AutoSizeText(
-                        '🔹 Замовити няню можна погодинно (мін.3 год) або придбати абонемент на 50, 100 чи 200 годин на місяць.\n'
+                        '🔹 Замовити няню можна погодинно (мін.3 год), на день, тиждень або місяць.\n'
                         '🔹 Перебування з дитиною може відбуватися вдома або в '
                         'центрі розвитку для дітей "UA kids у м.Тальне"❤️.',
                         textAlign: TextAlign.left,
@@ -127,9 +127,9 @@ class CooperationVew extends StatelessWidget {
               Flexible(
                 flex: 5,
                 child: SlideTransition(
-                  position: _imageFirstHalfAnimation,
+                  position: imageFirstHalfAnimation,
                   child: SlideTransition(
-                    position: _imageSecondHalfAnimation,
+                    position: imageSecondHalfAnimation,
                     child: Container(
                       constraints: BoxConstraints(
                           maxWidth: MediaQuery.of(context).size.width),

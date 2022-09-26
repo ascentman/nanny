@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nanny/screens/contact_us.dart';
+import 'package:nanny/service/firebase_analytics_screen.dart';
 import 'package:nanny/viewmodel/nanny_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 
 class BookingConfirmScreen extends StatefulWidget {
   static String id = 'booking';
+  final IAnalyticsService analytics;
 
-  const BookingConfirmScreen({Key? key}) : super(key: key);
+  const BookingConfirmScreen({
+    Key? key,
+    required this.analytics,
+  }) : super(key: key);
 
   @override
   State<BookingConfirmScreen> createState() => _BookingConfirmScreenState();
@@ -19,15 +23,12 @@ class BookingConfirmScreen extends StatefulWidget {
 class _BookingConfirmScreenState extends State<BookingConfirmScreen> {
   final TextEditingController _nameC = TextEditingController();
   final TextEditingController _phoneC = TextEditingController();
-  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {
     super.initState();
 
-    analytics.logScreenView(
-      screenName: 'booking-screen',
-    );
+    widget.analytics.logEvent('booking-start');
   }
 
   @override
@@ -107,6 +108,7 @@ class _BookingConfirmScreenState extends State<BookingConfirmScreen> {
                               _phoneC.text,
                               () {},
                             );
+                            widget.analytics.logEvent('booking-success');
                           }
                         },
                         child: Container(
@@ -132,7 +134,7 @@ class _BookingConfirmScreenState extends State<BookingConfirmScreen> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         child: Text(
-                          '*Зверніть увагу: у ціну включено лише догляд за однією дитиною за 1год. За кожну наступну дитину здійснюється доплата +50%. Додаткові послуги занять з розвитку, музики тощо оплачуються додатково. Мінімальне замовлення - 3 години. Дякуємо вам за довіру!❤️',
+                          '*Зверніть увагу: в ціну включено догляд за однією дитиною. За кожну наступну дитину здійснюється доплата +50%. Додаткові послуги занять з розвитку, музики узгоджуються індивідуально з нянею і оплачуються додатково. Мінімальне замовлення - 3 години. Дякуємо вам за довіру!❤️',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.literata(
                             textStyle: const TextStyle(

@@ -5,7 +5,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:nanny/firebase_options.dart';
 import 'package:nanny/screens/city_screen.dart';
 import 'package:nanny/screens/nannies_screen/components/dismiss_keyboard.dart';
+import 'package:nanny/screens/prices_screen.dart';
+import 'package:nanny/service/firebase_analytics_screen.dart';
 import 'package:nanny/service/locator_service.dart';
+import 'package:nanny/service/remote_config_service.dart';
 import 'package:nanny/viewmodel/nannies_view_model.dart';
 import 'package:nanny/viewmodel/nanny_view_model.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +19,6 @@ import 'screens/screens.dart';
 String initScreen = StartScreen.id;
 
 Future<void> main() async {
-  setupLocator();
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   if (prefs.getBool('showNannies') ?? false) {
@@ -24,6 +26,9 @@ Future<void> main() async {
   }
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  setupLocator();
+  await sl<IRemoteConfigService>().fetchUpdates();
+  await sl<IAnalyticsService>().logEvent('app-started');
   runApp(
     MultiProvider(
       providers: [
@@ -70,8 +75,12 @@ class MyApp extends StatelessWidget {
           NannyScreen.id: (context) => const NannyScreen(),
           AboutUsScreen.id: (context) => const AboutUsScreen(),
           ContactUsScreen.id: (context) => const ContactUsScreen(),
-          BookingConfirmScreen.id: (context) => const BookingConfirmScreen(),
+          BookingConfirmScreen.id: (context) =>
+              BookingConfirmScreen(analytics: sl.get()),
           TutorialScreen.id: (context) => const TutorialScreen(),
+          PricesScreen.id: (context) => PricesScreen(
+                remoteConfigService: sl.get(),
+              ),
         },
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:nanny/screens/nannies_screen/nannies_screen.dart';
+import 'package:nanny/service/locator_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'components/components.dart';
@@ -127,6 +128,7 @@ class StartScreenState extends State<StartScreen>
   void _showNannies() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('showNannies', true);
+    if (!mounted) return;
     Navigator.pushReplacementNamed(context, NanniesScreen.id);
   }
 }

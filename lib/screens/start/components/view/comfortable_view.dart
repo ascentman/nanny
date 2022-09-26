@@ -10,7 +10,7 @@ class ComfortableView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _firstHalfAnimation =
+    final firstHalfAnimation =
         Tween<Offset>(begin: const Offset(0, 1), end: const Offset(0, 0))
             .animate(
       CurvedAnimation(
@@ -22,7 +22,7 @@ class ComfortableView extends StatelessWidget {
         ),
       ),
     );
-    final _secondHalfAnimation =
+    final secondHalfAnimation =
         Tween<Offset>(begin: const Offset(0, 0), end: const Offset(-1, 0))
             .animate(
       CurvedAnimation(
@@ -34,7 +34,7 @@ class ComfortableView extends StatelessWidget {
         ),
       ),
     );
-    final _textAnimation =
+    final textAnimation =
         Tween<Offset>(begin: const Offset(0, 0), end: const Offset(-1, 0))
             .animate(
       CurvedAnimation(
@@ -46,7 +46,7 @@ class ComfortableView extends StatelessWidget {
         ),
       ),
     );
-    final _imageAnimation =
+    final imageAnimation =
         Tween<Offset>(begin: const Offset(0, 0), end: const Offset(-4, 0))
             .animate(
       CurvedAnimation(
@@ -59,7 +59,7 @@ class ComfortableView extends StatelessWidget {
       ),
     );
 
-    final _relaxAnimation =
+    final relaxAnimation =
         Tween<Offset>(begin: const Offset(0, -2), end: const Offset(0, 0))
             .animate(
       CurvedAnimation(
@@ -72,9 +72,9 @@ class ComfortableView extends StatelessWidget {
       ),
     );
     return SlideTransition(
-      position: _firstHalfAnimation,
+      position: firstHalfAnimation,
       child: SlideTransition(
-        position: _secondHalfAnimation,
+        position: secondHalfAnimation,
         child: Padding(
           padding: const EdgeInsets.only(bottom: 30, top: 100),
           child: Column(
@@ -83,7 +83,7 @@ class ComfortableView extends StatelessWidget {
               Flexible(
                 flex: 2,
                 child: SlideTransition(
-                  position: _relaxAnimation,
+                  position: relaxAnimation,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: AutoSizeText(
@@ -102,7 +102,7 @@ class ComfortableView extends StatelessWidget {
               Flexible(
                 flex: 5,
                 child: SlideTransition(
-                  position: _textAnimation,
+                  position: textAnimation,
                   child: Padding(
                     padding: const EdgeInsets.only(
                         left: 20, right: 20, top: 16, bottom: 16),
@@ -120,7 +120,7 @@ class ComfortableView extends StatelessWidget {
               Flexible(
                 flex: 5,
                 child: SlideTransition(
-                  position: _imageAnimation,
+                  position: imageAnimation,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30),
                     child: Container(

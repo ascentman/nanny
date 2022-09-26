@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:nanny/screens/nannies_screen/components/components.dart';
 import 'package:nanny/viewmodel/nannies_view_model.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 
 class NanniesScreen extends StatefulWidget {
   static String id = 'nannies';
@@ -15,16 +14,6 @@ class NanniesScreen extends StatefulWidget {
 
 class _NanniesScreenState extends State<NanniesScreen> {
   final ScrollController _scrollController = ScrollController();
-  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-
-  @override
-  void initState() {
-    super.initState();
-
-    analytics.logScreenView(
-      screenName: 'nannies-screen',
-    );
-  }
 
   @override
   Widget build(BuildContext context) {

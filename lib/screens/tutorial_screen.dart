@@ -1,4 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -24,25 +25,36 @@ class TutorialScreen extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-              child: AnimatedTextKit(
-                animatedTexts: [
-                  ColorizeAnimatedText(
-                    'Три прості кроки, як замовити няню:',
-                    textStyle: const TextStyle(
-                      fontSize: 28.0,
-                      fontFamily: 'Agne',
-                      fontWeight: FontWeight.bold,
+              child: kIsWeb
+                  ? const Text(
+                      'Три прості кроки, як замовити няню:',
+                      style: TextStyle(
+                        fontSize: 28.0,
+                        fontFamily: 'Agne',
+                        fontWeight: FontWeight.bold,
+                        color: Colors.indigo,
+                      ),
+                      textAlign: TextAlign.center,
+                    )
+                  : AnimatedTextKit(
+                      animatedTexts: [
+                        ColorizeAnimatedText(
+                          'Три прості кроки, як замовити няню:',
+                          textStyle: const TextStyle(
+                            fontSize: 28.0,
+                            fontFamily: 'Agne',
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                          colors: [
+                            const Color.fromARGB(255, 210, 170, 66),
+                            Colors.indigo,
+                            const Color.fromARGB(255, 210, 170, 66),
+                          ],
+                        ),
+                      ],
+                      isRepeatingAnimation: true,
                     ),
-                    textAlign: TextAlign.center,
-                    colors: [
-                      const Color.fromARGB(255, 210, 170, 66),
-                      Colors.indigo,
-                      const Color.fromARGB(255, 210, 170, 66),
-                    ],
-                  ),
-                ],
-                isRepeatingAnimation: true,
-              ),
             ),
             Image.asset(
               'assets/images/tutorial3.png',

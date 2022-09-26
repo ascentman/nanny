@@ -131,16 +131,16 @@ class CenterNextButton extends StatelessWidget {
   }
 
   Widget _pageView() {
-    int _selectedIndex = 0;
+    int selectedIndex = 0;
 
     if (animationController.value >= 0.7) {
-      _selectedIndex = 3;
+      selectedIndex = 3;
     } else if (animationController.value >= 0.5) {
-      _selectedIndex = 2;
+      selectedIndex = 2;
     } else if (animationController.value >= 0.3) {
-      _selectedIndex = 1;
+      selectedIndex = 1;
     } else if (animationController.value >= 0.1) {
-      _selectedIndex = 0;
+      selectedIndex = 0;
     }
 
     return Padding(
@@ -155,7 +155,7 @@ class CenterNextButton extends StatelessWidget {
                 duration: const Duration(milliseconds: 480),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(32),
-                  color: _selectedIndex == i
+                  color: selectedIndex == i
                       ? Colors.indigo
                       : const Color(0xffE3E4E4),
                 ),
